@@ -1,3 +1,9 @@
+## 2.0.0 (2024-01-07)
+
+### Feat
+
+- **main**: add requirements.txt to install required addons easier
+
 ## 0.2.0 (2024-01-07)
 
 ### Feat
