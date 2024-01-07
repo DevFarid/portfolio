@@ -1,3 +1,9 @@
+## 2.6.1 (2024-01-07)
+
+### Refactor
+
+- **main**: redo CSS & template moduling
+
 ## 2.6.0 (2024-01-07)
 
 ### Feat
