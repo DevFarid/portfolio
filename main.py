@@ -9,15 +9,15 @@ def index(name=None):
 
 @app.route('/projects')
 def projects():
-    return 'The project page'
+    return render_template('projects.html', name=name)
 
 @app.route('/about')
 def about():
-    return 'The about page'
+    return render_template('about.html', name=name)
     
 @app.route('/contacts')
 def contacts():
-    return 'The contact page'
+    return render_template('contacts.html', name=name)
 
 if __name__ == "__main__":
     app.run(debug=True)
