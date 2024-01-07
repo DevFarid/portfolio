@@ -1,3 +1,9 @@
+## 2.4.0 (2024-01-07)
+
+### Feat
+
+- **main**: add about.html template
+
 ## 2.3.0 (2024-01-07)
 
 ### Feat
