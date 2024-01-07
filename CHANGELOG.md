@@ -1,3 +1,10 @@
+## 2.1.0 (2024-01-07)
+
+### Feat
+
+- **main**: add projects and rename stuff
+- **main**: add project loader, and project struct
+
 ## 2.0.0 (2024-01-07)
 
 ### Feat
