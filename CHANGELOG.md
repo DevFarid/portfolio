@@ -1,3 +1,9 @@
+## 2.5.0 (2024-01-07)
+
+### Feat
+
+- **main**: add contacts.html template
+
 ## 2.4.0 (2024-01-07)
 
 ### Feat
