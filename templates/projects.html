@@ -4,9 +4,10 @@
 
 <!DOCTYPE html>
 <html lang="en">
-{% include 'static/head.html' %}
+{% include 'head.html' %}
 <body>
-    <div class="glassmorphic-card">
+    {% include 'navbar.html' %}
+    <div class="card">
         <h2>Glassmorphic Card</h2>
         
         {% if name %}
