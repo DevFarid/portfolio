@@ -3,9 +3,13 @@ body {
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(to bottom right, #74ebd5, #acb6e5);
+    min-height: 100vh;
+    margin: 0;
 }
 
 .navbar {
+    position: sticky;
+    top: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -31,4 +35,22 @@ nav a:hover {
     text-shadow: 0 0 8px rgba(0, 0, 0, 0.7);
 }
 
+.content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 80px; /* Adjust the padding to avoid content being overlapped by the sticky navbar */
+    gap: 20px;
+}
 
+.glass-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}

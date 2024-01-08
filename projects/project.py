@@ -2,16 +2,13 @@ import os
 
 class project_loader:
 
-
-
     def __init__(self):
         self.projects = []
         self.load()
 
     def load(self):
         dir_path = os.path.dirname(os.path.abspath(__file__))
-        folders = [folder for folder in os.listdir(dir_path) if os.path.isdir(os.path.join(dir_path, folder))]
-        print(folders)
+        self.projects = [folder for folder in os.listdir(dir_path) if os.path.isdir(os.path.join(dir_path, folder))]
 
         
 class project:

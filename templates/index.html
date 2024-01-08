@@ -7,14 +7,20 @@
 {% include 'head.html' %}
 <body>
     {% include 'navbar.html' %}
-    <div class="card">
+    <div class="content-container">
+      <div class="glass-container">
+          <h2>Glassmorphic Card</h2>
+          
+          {% if name %}
+            <p>Hello {{ name }}!</p>
+          {% else %}
+            <p>Hello, World!</p>
+          {% endif %}
+      </div>
+
+      <div class="glass-container">
         <h2>Glassmorphic Card</h2>
-        
-        {% if name %}
-          <p>Hello {{ name }}!</p>
-        {% else %}
-          <p>Hello, World!</p>
-        {% endif %}
-    </div>
+      </div>
+  </div>
 </body>
 </html>
