@@ -1,3 +1,9 @@
+## 2.6.2 (2024-01-08)
+
+### Refactor
+
+- **main**: fix position styling
+
 ## 2.6.1 (2024-01-07)
 
 ### Refactor
