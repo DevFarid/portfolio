@@ -1,3 +1,9 @@
+## 2.6.3 (2024-01-09)
+
+### Refactor
+
+- **main**: show the current projects in the projects page
+
 ## 2.6.2 (2024-01-08)
 
 ### Refactor
