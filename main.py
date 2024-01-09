@@ -1,4 +1,5 @@
 from flask import Flask, render_template, url_for
+from projects import project
 
 app = Flask(__name__)
 
@@ -7,9 +8,10 @@ app = Flask(__name__)
 def index(name=None):
     return render_template('index.html', name=name)
 
-@app.route('/projects')
+@app.route('/projects.html')
 def projects():
-    return render_template('projects.html', name=name)
+    x=project.project_loader()
+    return render_template('projects.html', len=len(x.getProjects()), x=x)
 
 @app.route('/about')
 def about():

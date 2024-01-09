@@ -9,6 +9,9 @@ class project_loader:
     def load(self):
         dir_path = os.path.dirname(os.path.abspath(__file__))
         self.projects = [folder for folder in os.listdir(dir_path) if os.path.isdir(os.path.join(dir_path, folder))]
+    
+    def getProjects(self):
+        return self.projects
 
         
 class project:
