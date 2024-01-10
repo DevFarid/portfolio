@@ -9,17 +9,11 @@
     {% include 'navbar.html' %}
     <div class="content-container">
       <div class="glass-container">
-          <h2>Glassmorphic Card</h2>
-          
-          {% if name %}
-            <p>Hello {{ name }}!</p>
-          {% else %}
-            <p>Hello, World!</p>
+        <h2>Site Version:
+          {% if version %}
+            <a href="https://github.com/DevFarid/portfolio/commits/main/">{{ version }}</a>
           {% endif %}
-      </div>
-
-      <div class="glass-container">
-        <h2>Glassmorphic Card</h2>
+        </h2>
       </div>
   </div>
 </body>
