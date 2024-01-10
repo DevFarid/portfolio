@@ -1,6 +1,6 @@
 from flask import Flask, render_template, url_for
-from projects import project
-from classes import clazz
+from projects.project import project_loader
+from classes.clazz import *
 from utils import *
 import os
 
@@ -14,14 +14,12 @@ def index(name=None):
 @app.route('/projects')
 @app.route('/projects.html')
 def projects():
-    x=project.project_loader()
-    return render_template('projects.html', project_loader=x)
+    return render_template('projects.html', project_loader=project_loader())
 
 @app.route('/courses')
 @app.route('/courses.html')
 def courses(name=None):
-    x=clazz.class_loader()
-    return render_template('courses.html', class_loader=x)
+    return render_template('courses.html', class_loader=class_loader())
 
 @app.route('/about')
 @app.route('/about.html')

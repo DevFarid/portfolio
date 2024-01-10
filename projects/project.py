@@ -3,7 +3,7 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 from utils import *
 
-class project_loader:
+class project_loader():
 
     def __init__(self):
         self.projects = []
