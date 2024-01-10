@@ -8,19 +8,22 @@
 <body>
     {% include 'navbar.html' %}
     <div class="content-container">
-      <div class="glass-container">
-          <h2>Glassmorphic Card</h2>
-          
-          {% if name %}
-            <p>Hello {{ name }}!</p>
-          {% else %}
-            <p>Hello, World!</p>
-          {% endif %}
-      </div>
 
-      <div class="glass-container">
-        <h2>Glassmorphic Card</h2>
-      </div>
+      {% if x %}
+        {% for i in range(0, x.len()) %} 
+          <div class="glass-container">
+            <h2>{{x.getClassName(i)}}</h2>
+            <ol>
+              {% for cProj in x.getClass(i).getClassProjects() %}
+              <li>
+                {{cProj}}
+              </li>
+              {%endfor%}
+            </ol>
+          </div>
+        {%endfor%}   
+      {% else %}
+      {% endif %}
   </div>
 </body>
 </html>

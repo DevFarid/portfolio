@@ -11,7 +11,8 @@ class project_loader:
         self.projects = [folder for folder in os.listdir(dir_path) if os.path.isdir(os.path.join(dir_path, folder))]
 
         # remove pycache folder each time upon running
-        self.projects.remove("__pycache__")
+        if '__pycache__' in self.projects:
+            self.projects.remove("__pycache__")
     
     def getProjects(self):
         return self.projects
