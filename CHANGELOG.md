@@ -1,3 +1,9 @@
+## 2.11.2 (2024-01-10)
+
+### Fix
+
+- **main**: package imports and problems
+
 ## 2.11.1 (2024-01-10)
 
 ### Refactor
