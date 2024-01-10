@@ -1,3 +1,13 @@
+## 2.7.0 (2024-01-09)
+
+### Feat
+
+- **main**: add courses page
+
+### Fix
+
+- **main**: remove __pycache__ from appearing as a project folder
+
 ## 2.6.3 (2024-01-09)
 
 ### Refactor
