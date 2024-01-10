@@ -8,23 +8,15 @@
 <body>
     {% include 'navbar.html' %}
     <div class="content-container">
-      <div class="glass-container">
-          <h2>Glassmorphic Card</h2>
-          
-          {% if x %}
-            <ol> 
-              <!-- For loop logic of jinja template -->
-              {%for i in range(0, len)%} 
-                <li>{{x.getProjects()[i]}}</li> 
-              {%endfor%}   
-            </ol> 
-          {% else %}
-            <p>No projects loaded, check in later.</p>
-          {% endif %}
-      </div>
-      <div class="glass-container">
-        <h2>Glassmorphic Card</h2>
-      </div>
-  </div>
+
+      {% if project_loader %}
+        {% for i in range(0, project_loader.len()) %}
+          <div class="glass-container">
+            <h2>{{project_loader.getProjectName(i)}}</h2>
+          </div>
+        {% endfor %}
+      {% else %}
+      {% endif %}
+    </div>
 </body>
 </html>

@@ -1,4 +1,7 @@
 import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+from utils import *
 
 class project_loader:
 
@@ -8,22 +11,16 @@ class project_loader:
 
     def load(self):
         dir_path = os.path.dirname(os.path.abspath(__file__))
-        self.projects = [folder for folder in os.listdir(dir_path) if os.path.isdir(os.path.join(dir_path, folder))]
+        self.projects = [project(f) for f in os.listdir(dir_path) if not (f.startswith('__pycache__') or f.endswith(".py"))]
 
-        # remove pycache folder each time upon running
-        if '__pycache__' in self.projects:
-            self.projects.remove("__pycache__")
-    
+    def len(self):
+        return len(self.projects)
+
     def getProjects(self):
         return self.projects
 
-        
-class project:
-
-    def __init__(self, name):
-        self.name = name
-
-
+    def getProjectName(self, index):
+        return self.projects[index].getName().replace("_", " ")
 
 if __name__ == "__main__":
     x = project_loader()
