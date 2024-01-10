@@ -8,17 +8,26 @@ app = Flask(__name__)
 def index(name=None):
     return render_template('index.html', name=name)
 
+@app.route('/projects')
 @app.route('/projects.html')
 def projects():
     x=project.project_loader()
     return render_template('projects.html', len=len(x.getProjects()), x=x)
 
 @app.route('/about')
-def about():
+@app.route('/about.html')
+def about(name=None):
     return render_template('about.html', name=name)
     
+
+@app.route('/classes')
+@app.route('/courses.html')
+def courses(name=None):
+    return render_template('courses.html', name=name)
+
 @app.route('/contacts')
-def contacts():
+@app.route('/contacts.html')
+def contacts(name=None):
     return render_template('contacts.html', name=name)
 
 if __name__ == "__main__":

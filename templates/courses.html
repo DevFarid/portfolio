@@ -1,0 +1,26 @@
+{% block styles %}
+    <link rel="stylesheet"  type="text/css" href="{{url_for('static', filename='style.css')}}">
+{% endblock %}
+
+<!DOCTYPE html>
+<html lang="en">
+{% include 'head.html' %}
+<body>
+    {% include 'navbar.html' %}
+    <div class="content-container">
+      <div class="glass-container">
+          <h2>Glassmorphic Card</h2>
+          
+          {% if name %}
+            <p>Hello {{ name }}!</p>
+          {% else %}
+            <p>Hello, World!</p>
+          {% endif %}
+      </div>
+
+      <div class="glass-container">
+        <h2>Glassmorphic Card</h2>
+      </div>
+  </div>
+</body>
+</html>
