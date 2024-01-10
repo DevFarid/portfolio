@@ -1,13 +1,15 @@
 from flask import Flask, render_template, url_for
 from projects import project
 from classes import clazz
+from utils import *
+import os
 
 app = Flask(__name__)
 
 @app.route("/")
 @app.route('/<name>')
 def index(name=None):
-    return render_template('index.html', name=name)
+    return render_template('index.html', version=Utilities.get_project_version(os.path.dirname(os.path.abspath(__file__))))
 
 @app.route('/projects')
 @app.route('/projects.html')
