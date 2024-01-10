@@ -1,3 +1,9 @@
+## 2.8.0 (2024-01-09)
+
+### Refactor
+
+- **main**: make gitignore ignore classes folder
+
 ## 2.7.0 (2024-01-09)
 
 ### Feat
