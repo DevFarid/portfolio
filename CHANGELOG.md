@@ -1,3 +1,9 @@
+## 2.9.0 (2024-01-10)
+
+### Feat
+
+- **main**: add course python model
+
 ## 2.8.0 (2024-01-09)
 
 ### Refactor
