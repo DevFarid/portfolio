@@ -9,14 +9,14 @@
     {% include 'navbar.html' %}
     <div class="content-container">
 
-      {% if x %}
-        {% for i in range(0, x.len()) %} 
+      {% if class_loader %}
+        {% for i in range(0, class_loader.len()) %} 
           <div class="glass-container">
-            <h2>{{x.getClassName(i)}}</h2>
+            <h2>{{class_loader.getClassName(i)}}</h2>
             <ol>
-              {% for cProj in x.getClass(i).getClassProjects() %}
+              {% for j in range( 0, class_loader.len_of_cproj(i) ) %}
               <li>
-                {{cProj}}
+                {{class_loader.clazz(i).getClassProjects()[j].getName()}}
               </li>
               {%endfor%}
             </ol>

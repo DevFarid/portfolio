@@ -13,13 +13,13 @@ def index(name=None):
 @app.route('/projects.html')
 def projects():
     x=project.project_loader()
-    return render_template('projects.html', len=len(x.getProjects()), x=x)
+    return render_template('projects.html', project_loader=x)
 
-@app.route('/classes')
+@app.route('/courses')
 @app.route('/courses.html')
 def courses(name=None):
     x=clazz.class_loader()
-    return render_template('courses.html', x=x)
+    return render_template('courses.html', class_loader=x)
 
 @app.route('/about')
 @app.route('/about.html')
