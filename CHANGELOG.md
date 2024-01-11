@@ -1,3 +1,9 @@
+## 2.13.0 (2024-01-11)
+
+### Refactor
+
+- **main**: template html page CSS re-do
+
 ## 2.12.0 (2024-01-11)
 
 ### Feat
