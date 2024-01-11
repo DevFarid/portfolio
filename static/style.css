@@ -51,11 +51,26 @@ nav a:hover, a:hover, a:active {
 
 .content-container {
     display: flex;
-    flex-direction: column;
+    width: 100rem;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
+    align-content: space-between;
     padding: 1vh;
     margin: 1vh;
     gap: 1vh;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 3vh;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+  
+/* Responsive layout - makes a one column layout instead of a two-column layout */
+@media (max-width: 800px) {
+.content-container {
+        flex-direction: column;
+    }
 }
 
 .glass-container {

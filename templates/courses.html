@@ -7,23 +7,22 @@
 {% include 'head.html' %}
 <body>
     {% include 'navbar.html' %}
-    <div class="content-container">
-
       {% if class_loader %}
         {% for i in range(0, class_loader.len()) %} 
-          <div class="glass-container">
+          <div class="content-container">
             <h2>{{class_loader.getClassName(i)}}</h2>
-            <ol>
-              {% for j in range( 0, class_loader.len_of_cproj(i) ) %}
-              <li>
-                {{class_loader.clazz(i).getClassProjects()[j].getName()}}
-              </li>
-              {%endfor%}
-            </ol>
+            {% for j in range( 0, class_loader.len_of_cproj(i) ) %}
+            <div class="glass-container" style="width: 40vh;height: 40vh;">
+              <h3><a href="{{url_for('specific_project', project=class_loader.clazz(i).getClassProjects()[j].getName())}}">{{class_loader.clazz(i).getClassProjects()[j].getName()}}</a></h3>
+              <img class="profile-pic" src="" alt="Profile Picture">
+              <h2>H2</h2>
+              <p>paragraph</p>
+              <p>paragraph</p>
+              <p>paragraph</p>
+            </div>
+            {%endfor%}
           </div>
-        {%endfor%}   
-      {% else %}
+        {%endfor%}  
       {% endif %}
-  </div>
 </body>
 </html>
