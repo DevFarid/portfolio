@@ -4,6 +4,10 @@
 
 <!DOCTYPE html>
 <html lang="en">
+<head>
+  <style>
+  </style>
+</head>
 {% include 'head.html' %}
 <body>
     {% include 'navbar.html' %}
@@ -13,6 +17,11 @@
         {% for i in range(0, project_loader.len()) %}
           <div class="glass-container">
             <h3><a href="{{url_for('specific_project', project=project_loader.getProjectName(i))}}">{{project_loader.getProjectName(i)}}</a></h3>
+            <img class="profile-pic" src="https://i.pinimg.com/564x/bc/22/bb/bc22bbc074e7b0c22fd0f037e8e218e0.jpg" alt="Profile Picture">
+            <h2>H2</h2>
+            <p>paragraph</p>
+            <p>paragraph</p>
+            <p>paragraph</p>
           </div>
         {% endfor %}
       {% else %}
