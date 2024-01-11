@@ -4,14 +4,31 @@
 
 <!DOCTYPE html>
 <html lang="en">
+<head>
+  <style>
+  </style>
+</head>
 {% include 'head.html' %}
 <body>
     {% include 'navbar.html' %}
-    <div class="content-container">
+
+    <center>
       <div class="glass-container">
+        <img class="profile-pic" src="https://i.pinimg.com/564x/bc/22/bb/bc22bbc074e7b0c22fd0f037e8e218e0.jpg" alt="Profile Picture">
+        <h2>Six Eyes</h2>
+        <p>B.S Computer Science & Engineering</p>
+        <p>Ohio State University</p>
+        <p>Portfolio.</p>
+      </div>
+    </center>
+
+    <div class="content-container">
+      <div class="glass-container" style="width: 100vh; border-radius: 2vh;">
         <h2>Site Version:
           {% if version %}
             <a href="https://github.com/DevFarid/portfolio/commits/main/">{{ version }}</a>
+          {% else %}
+            <a href="https://github.com/DevFarid/portfolio/commits/main/">GitHub</a>
           {% endif %}
         </h2>
       </div>
