@@ -30,15 +30,5 @@ def specific_project(project):
 def courses(name=None):
     return render_template('courses.html', class_loader=clazz_loader)
 
-@app.route('/about')
-@app.route('/about.html')
-def about(name=None):
-    return render_template('about.html', name=name)
-
-@app.route('/contacts')
-@app.route('/contacts.html')
-def contacts(name=None):
-    return render_template('contacts.html', name=name)
-
 if __name__ == "__main__":
     app.run(debug=True)

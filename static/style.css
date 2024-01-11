@@ -71,6 +71,10 @@ nav a:hover, a:hover, a:active {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.glass-container ol li {
+    text-decoration: none;
+    list-style-type: none;
+}
 
 .profile-pic {
     width: 100px;
