@@ -1,3 +1,9 @@
+## 2.0.0 (2024-01-11)
+
+### Fix
+
+- **main**: fix project version accordingly
+
 ## 2.13.0 (2024-01-11)
 
 ### Refactor
