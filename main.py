@@ -4,6 +4,8 @@ from classes.clazz import *
 from utils import *
 import os
 
+project_loader = project_loader()
+clazz_loader = class_loader()
 app = Flask(__name__)
 
 @app.route("/")
@@ -14,12 +16,19 @@ def index(name=None):
 @app.route('/projects')
 @app.route('/projects.html')
 def projects():
-    return render_template('projects.html', project_loader=project_loader())
+    return render_template('projects.html', project_loader=project_loader)
+
+@app.route('/projects/<string:project>')
+@app.route('/projects.html/<string:project>')
+def specific_project(project):
+    if project_loader.hasProject(project):
+        return "yes it was found"
+    return "nope"
 
 @app.route('/courses')
 @app.route('/courses.html')
 def courses(name=None):
-    return render_template('courses.html', class_loader=class_loader())
+    return render_template('courses.html', class_loader=clazz_loader)
 
 @app.route('/about')
 @app.route('/about.html')
