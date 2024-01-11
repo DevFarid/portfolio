@@ -1,3 +1,9 @@
+## 2.13.2 (2024-01-11)
+
+### Refactor
+
+- **main**: remove about, contact page, add them to index
+
 ## 2.13.1 (2024-01-11)
 
 ### Fix
