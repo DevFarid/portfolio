@@ -25,7 +25,7 @@ class project:
         return self.repoLink
 
     def getName(self):
-        return self.name
+        return self.name.replace("_", " ")
 
 class Utilities:
     @staticmethod
