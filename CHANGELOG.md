@@ -1,3 +1,9 @@
+## 2.13.3 (2024-01-11)
+
+### Refactor
+
+- **projects/courses**: change CSS/Jinja styling of presentation
+
 ## 2.13.2 (2024-01-11)
 
 ### Refactor
