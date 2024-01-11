@@ -20,7 +20,11 @@ class project_loader():
         return self.projects
 
     def getProjectName(self, index):
-        return self.projects[index].getName().replace("_", " ")
+        return self.projects[index].getName()
+
+    def hasProject(self, project_name):
+        return any(p.getName() == project_name for p in self.projects)
+
 
 if __name__ == "__main__":
     x = project_loader()
