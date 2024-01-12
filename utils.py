@@ -3,29 +3,46 @@ import os
 
 class project:
 
-    def __init__(self, name):
+    def __init__(self, name, clazz: str = None, isClassProject: bool = False):
         self.name = name
         self.repoLink = None
         self.date = None
-        
-        # Object/Video Object/idk?? ideas.
-        self.showcase = None
 
-        self.loadRepoLink()
+        self.relative_path = ""
+
+        self.icon = None
+
+        if isClassProject and clazz is not None:
+            self.relative_path = "classes\\" + clazz + "\\" + name
+            self.loadIcon()
+            self.loadRepoLink()
+        else:
+            self.relative_path = "projects\\" + name
+
+    def loadIcon(self):
+        dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self.relative_path)
+        x = Utilities.get_project_icon(dir_path)
+        if x is None:
+            pass
+        else:
+            self.icon = x
+
+    def getIcon(self):
+        return self.icon
 
     def loadRepoLink(self):
-        dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self.name)
+        dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self.relative_path)
         x = Utilities.get_project_git_config_url(dir_path)
         if x is None:
             pass
         else:
             self.repoLink = x
 
-    def getRepoLink():
+    def getRepoLink(self):
         return self.repoLink
 
     def getName(self):
-        return self.name.replace("_", " ")
+        return self.name
 
 class Utilities:
     @staticmethod
@@ -70,3 +87,19 @@ class Utilities:
                 except (configparser.NoSectionError, configparser.NoOptionError) as e:
                     return None
                     # raise ValueError(f"Failed to retrieve version from pyproject.toml: {e}")
+    
+    @staticmethod
+    def get_project_icon(directory):
+        filePath = Utilities.fileExists(directory, 'logoconfig')
+        if filePath is not None:
+            with open(filePath, 'r', encoding='utf-8') as config_file:
+                config_content = config_file.read()
+
+                config_parser = configparser.ConfigParser()
+                config_parser.read_string(config_content)
+
+                try:
+                    logolink = config_parser.get('logoconfig', 'url')
+                    return logolink
+                except (configparser.NoSectionError, configparser.NoOptionError) as e:
+                    return None

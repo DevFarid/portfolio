@@ -16,7 +16,7 @@
         <div class="content-container">
         {% for i in range(0, project_loader.len()) %}
         <div class="glass-container" style="width: 40vh;height: 40vh;">
-            <h3><a href="{{url_for('specific_project', project=project_loader.getProjectName(i))}}">{{project_loader.getProjectName(i)}}</a></h3>
+            <h3><a href="{{url_for('specific_project', project=project_loader.getProjectName(i))}}">{{project_loader.getProjectName(i).replace('_', ' ')}}</a></h3>
             <img class="profile-pic" src="" alt="Profile Picture">
             <h2>H2</h2>
             <p>paragraph</p>

@@ -25,6 +25,12 @@ def specific_project(project):
         return "yes it was found"
     return "nope"
 
+@app.route('/classes/<string:clazz>/projects/<string:project>')
+def specific_classproject(clazz, project):
+    if clazz_loader.hasProject(project):
+        return "yes it was found"
+    return "nope"
+
 @app.route('/courses')
 @app.route('/courses.html')
 def courses(name=None):

@@ -22,8 +22,15 @@ class project_loader():
     def getProjectName(self, index):
         return self.projects[index].getName()
 
+    def getProjectIcon(self, index):
+        return self.projects[index].getIcon()
+
     def hasProject(self, project_name):
         return any(p.getName() == project_name for p in self.projects)
+
+    def getProjectByName(self, name):
+        if self.hasProject(name):
+            return next(p for p in self.projects if p.getName() == name)
 
 
 if __name__ == "__main__":

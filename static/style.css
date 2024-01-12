@@ -12,11 +12,14 @@ body {
 h2, p, .navbar {
     margin: 10px 0;
     color: #fff;
-    text-shadow: 0 0 4px 0px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 0 4px 0px rgba(0, 0, 0, 0.2);h2 {
+    align-self: center;
+}
 }
 
 .navbar {
     position: sticky;
+    margin: 0;
     top: 0;
     display: flex;
     z-index: 999;
@@ -64,6 +67,10 @@ nav a:hover, a:hover, a:active {
     border-radius: 3vh;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.content-container h2 {
+    align-self: flex-start;
 }
   
 /* Responsive layout - makes a one column layout instead of a two-column layout */
