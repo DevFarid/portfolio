@@ -1,3 +1,9 @@
+## 2.13.5 (2024-01-12)
+
+### Refactor
+
+- **main**: add logoconfig
+
 ## 2.13.4 (2024-01-11)
 
 ### Refactor
