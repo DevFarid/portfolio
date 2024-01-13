@@ -1,3 +1,9 @@
+## 2.13.6 (2024-01-13)
+
+### Refactor
+
+- **main**: add more support for detail project page (individual unit)
+
 ## 2.13.5 (2024-01-12)
 
 ### Refactor
