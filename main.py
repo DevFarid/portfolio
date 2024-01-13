@@ -22,14 +22,14 @@ def projects():
 @app.route('/projects.html/<string:project>')
 def specific_project(project):
     if project_loader.hasProject(project):
-        return "yes it was found"
-    return "nope"
+        return render_template('project.html', project=project_loader.getProjectByName(project))
+    return "404 not found"
 
 @app.route('/classes/<string:clazz>/projects/<string:project>')
 def specific_classproject(clazz, project):
     if clazz_loader.hasProject(project):
-        return "yes it was found"
-    return "nope"
+        return render_template('project.html', project=clazz_loader.getClassProject(project))
+    return "404 not found"
 
 @app.route('/courses')
 @app.route('/courses.html')

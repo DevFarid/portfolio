@@ -19,6 +19,9 @@ class project_loader():
     def getProjects(self):
         return self.projects
 
+    def getProject(self, index):
+        return self.projects[index]
+
     def getProjectName(self, index):
         return self.projects[index].getName()
 

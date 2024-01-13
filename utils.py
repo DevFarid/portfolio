@@ -14,10 +14,11 @@ class project:
 
         if isClassProject and clazz is not None:
             self.relative_path = "classes\\" + clazz + "\\" + name
-            self.loadIcon()
-            self.loadRepoLink()
         else:
             self.relative_path = "projects\\" + name
+            
+        self.loadIcon()
+        self.loadRepoLink()
 
     def loadIcon(self):
         dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self.relative_path)
