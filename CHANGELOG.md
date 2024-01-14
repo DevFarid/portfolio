@@ -1,3 +1,9 @@
+## 2.13.7 (2024-01-14)
+
+### Refactor
+
+- **main**: redo style.css, add resume page support, redo courses/projects html page
+
 ## 2.13.6 (2024-01-13)
 
 ### Refactor
