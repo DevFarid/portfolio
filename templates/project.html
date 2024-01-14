@@ -10,11 +10,42 @@
 </head>
 {% include 'head.html' %}
 <body>
-    <center>
-    {% include 'navbar.html' %}
-      {% if project %}
-        <p>Hello World</p>
-      {% endif %}
-    </center>
+  {% include 'navbar.html' %}
+  <div class="container">
+    {% if project %}
+    <div class="card">
+        <img class="profile-pic" style="width: 25px;height: 25px;" src="{{project.getIcon()}}" alt="Profile Picture">
+        <p>{{project.getName()}}</p>
+        
+        <h2>Creation Date:</h2>
+        <p>{{project.getCreatedDate()}}</p>
+        </br>
+
+        <h2>Last Commit:</h2>
+        <p>{{project.getLastCommit()}}</p>
+        </br>
+
+        <h2>Repo:</h2>
+        <p><a href="{{project.getRepoLink()}}"><img class="profile-pic" src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="Github Icon" style="width: 25px;height: 25px;"></a></p>
+      
+      </div>
+
+      <div class="card">
+        <p>Long text...Long text...Long text...Long text...Long text...Long text...Long text...</p>
+      </div>
+
+      <div class="card">
+        <p>Long text...Long text...Long text...Long text...Long text...Long text...Long text...</p>
+      </div>
+
+      <div class="card">
+        <p>Long text...Long text...Long text...Long text...Long text...Long text...Long text...
+          Long text...Long text...Long text...Long text...Long text...Long text...Long text...
+          Long text...Long text...Long text...Long text...Long text...Long text...Long text...
+          Long text...Long text...Long text...Long text...Long text...Long text...Long text...
+        </p>
+      </div>
+    {% endif %}
+  </div>
 </body>
 </html>

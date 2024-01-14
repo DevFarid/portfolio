@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for
+from flask import *
 from projects.project import project_loader
 from classes.clazz import *
 from utils import *
@@ -7,11 +7,12 @@ import os
 project_loader = project_loader()
 clazz_loader = class_loader()
 app = Flask(__name__)
+app_last_commit_date = Utilities.get_last_commit_date(os.path.dirname(os.path.abspath(__file__)))
 
 @app.route("/")
 @app.route('/<name>')
 def index(name=None):
-    return render_template('index.html', version=Utilities.get_project_version(os.path.dirname(os.path.abspath(__file__))))
+    return render_template('index.html', version=Utilities.get_project_version(os.path.dirname(os.path.abspath(__file__))), last_update=app_last_commit_date)
 
 @app.route('/projects')
 @app.route('/projects.html')
@@ -35,6 +36,10 @@ def specific_classproject(clazz, project):
 @app.route('/courses.html')
 def courses(name=None):
     return render_template('courses.html', class_loader=clazz_loader)
+
+@app.route('/resume')
+def resume():
+    return redirect(url_for('static', filename='resume.pdf'))
 
 if __name__ == "__main__":
     app.run(debug=True)

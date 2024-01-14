@@ -1,5 +1,6 @@
 import configparser
 import os
+import git
 
 class project:
 
@@ -7,6 +8,7 @@ class project:
         self.name = name
         self.repoLink = None
         self.date = None
+        self.lastCommit = None
 
         self.relative_path = ""
 
@@ -19,6 +21,22 @@ class project:
             
         self.loadIcon()
         self.loadRepoLink()
+        self.loadGitDate()
+        self.loadLastCommit()
+
+    def loadGitDate(self):
+        if self.repoLink is not None:
+            dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self.relative_path)
+            x = Utilities.get_creation_date(dir_path)
+            if x is not None:
+                self.date = x
+
+    def loadLastCommit(self):
+        if self.repoLink is not None:
+            dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self.relative_path)
+            x = Utilities.get_last_commit_date(dir_path)
+            if x is not None:
+                self.lastCommit = x
 
     def loadIcon(self):
         dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self.relative_path)
@@ -27,9 +45,6 @@ class project:
             pass
         else:
             self.icon = x
-
-    def getIcon(self):
-        return self.icon
 
     def loadRepoLink(self):
         dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self.relative_path)
@@ -44,6 +59,15 @@ class project:
 
     def getName(self):
         return self.name
+
+    def getIcon(self):
+        return self.icon
+
+    def getCreatedDate(self):
+        return self.date
+
+    def getLastCommit(self):
+        return self.lastCommit
 
 class Utilities:
     @staticmethod
@@ -104,3 +128,26 @@ class Utilities:
                     return logolink
                 except (configparser.NoSectionError, configparser.NoOptionError) as e:
                     return None
+
+    @staticmethod
+    def get_last_commit_date(directory):
+        if not os.path.isdir(directory):
+            return None
+        else:
+            repo = git.Repo(directory)
+            default_branch = repo.head.ref.name
+            first_commit = list(repo.iter_commits(default_branch, max_count=1))[0]
+            return first_commit.committed_datetime.strftime('%m/%d/%y')
+
+    @staticmethod
+    def get_creation_date(directory):
+        if not os.path.isdir(directory):
+            return None
+        else:
+            repo = git.Repo(directory)
+            default_branch = repo.head.ref.name
+            # Get all commits for the branch
+            commits = list(repo.iter_commits(default_branch))
+            # The last commit in the list is the first ever commit
+            first_commit = commits[-1]
+            return first_commit.committed_datetime.strftime('%m/%d/%y')

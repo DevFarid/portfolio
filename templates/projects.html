@@ -10,24 +10,23 @@
 </head>
 {% include 'head.html' %}
 <body>
-    <center>
-    {% include 'navbar.html' %}
-      {% if project_loader %}
-        <div class="content-container">
-        {% for i in range(0, project_loader.len()) %}
-        <div class="glass-container" style="width: 40vh;height: 40vh;">
-            <h3><a href="{{url_for('specific_project', project=project_loader.getProjectName(i))}}">{{project_loader.getProjectName(i).replace('_', ' ')}}</a></h3>
-            <img class="profile-pic" src="{{project_loader.getProject(i).getIcon()}}" alt="Profile Picture">
-            <h2>H2</h2>
-            <p>paragraph</p>
-            <p>paragraph</p>
-            {% if project_loader.getProject(i).getRepoLink() %}
-              <p><a href="{{project_loader.getProject(i).getRepoLink()}}"><img class="profile-pic" src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="Github Icon" style="width: 25px;height: 25px;"></a></p>
-            {% endif %}
-          </div>
-        {% endfor %}
-      </div>
-      {% endif %}
-    </center>
+  {% include 'navbar.html' %}
+    {% if project_loader %}
+      <div class="container">
+      {% for i in range(0, project_loader.len()) %}
+        <div class="card" style="max-width: 500px;max-height: 500px;">
+          <h3><a href="{{url_for('specific_project', project=project_loader.getProjectName(i))}}">{{project_loader.getProjectName(i).replace('_', ' ')}}</a></h3>
+          <img class="profile-pic" src="{{project_loader.getProject(i).getIcon()}}" alt="Profile Picture" style="width: 64px;height: 64px;">
+          <h2>H2</h2>
+          <p>paragraph</p>
+          <p>paragraph</p>
+          {% if project_loader.getProject(i).getRepoLink() %}
+            <p><a href="{{project_loader.getProject(i).getRepoLink()}}"><img class="profile-pic" src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="Github Icon" style="width: 25px;height: 25px;"></a></p>
+          {% endif %}
+        </div>
+      </br>
+      {% endfor %}
+    </div>
+    {% endif %}
 </body>
 </html>

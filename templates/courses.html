@@ -8,21 +8,27 @@
 <body>
     {% include 'navbar.html' %}
       {% if class_loader %}
-        {% for i in range(0, class_loader.len()) %} 
-          <div class="content-container">
-            <h2 style="align-self: flex-start;">{{class_loader.getClassName(i)}}</h2>
-            {% for j in range( 0, class_loader.len_of_cproj(i) ) %}
-            <div class="glass-container" style="margin-top: 5vh; width: 40vh;height: 40vh;">
-              <h3><a href="{{url_for('specific_classproject', clazz=class_loader.clazz(i).getName(), project=class_loader.clazz(i).getClassProjects()[j].getName())}}">{{class_loader.clazz(i).getClassProjects()[j].getName().replace('_', ' ')}}</a></h3>
-              <img class="profile-pic" src="{{class_loader.clazz(i).getClassProjects()[j].getIcon()}}" alt="Profile Picture">
-              <h2>H2</h2>
-              <p>paragraph</p>
-              <p>paragraph</p>
-              <p><a href="{{class_loader.clazz(i).getClassProjects()[j].getRepoLink()}}"><img class="profile-pic" src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="Github Icon" style="width: 25px;height: 25px;"></a></p>
+      <div class="container" style="flex-flow: column wrap;">
+        {% for i in range(0, class_loader.len()) %}
+          <div class="container" style="flex-flow: column wrap;">
+            <h2>{{class_loader.getClassName(i)}}</h2>
+            <div class="container" style="flex-flow: row wrap;">
+              {% for j in range( 0, class_loader.len_of_cproj(i) ) %}
+              <div class="card" style="max-width: 500px;max-height: 500px;">
+                <h3><a href="{{url_for('specific_classproject', clazz=class_loader.clazz(i).getName(), project=class_loader.clazz(i).getClassProjects()[j].getName())}}">{{class_loader.clazz(i).getClassProjects()[j].getName().replace('_', ' ')}}</a></h3>
+                <img class="profile-pic" src="{{class_loader.clazz(i).getClassProjects()[j].getIcon()}}" alt="Profile Picture" style="width: 64px;height: 64px;">
+                <h2>H2</h2>
+                <p>paragraph</p>
+                <p>paragraph</p>
+                <p><a href="{{class_loader.clazz(i).getClassProjects()[j].getRepoLink()}}"><img class="profile-pic" src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="Github Icon" style="width: 25px;height: 25px;"></a></p>
+              </div>
+              </br>
+              {%endfor%}
             </div>
-            {%endfor%}
           </div>
-        {%endfor%}  
+        </br>
+        {%endfor%}
+      </div>
       {% endif %}
 </body>
 </html>
