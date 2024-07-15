@@ -16,7 +16,9 @@
               {% for j in range( 0, class_loader.len_of_cproj(i) ) %}
               <div class="card" style="max-width: 500px;max-height: 500px;">
                 <h3><a href="{{url_for('specific_classproject', clazz=class_loader.clazz(i).getName(), project=class_loader.clazz(i).getClassProjects()[j].getName())}}">{{class_loader.clazz(i).getClassProjects()[j].getName().replace('_', ' ')}}</a></h3>
-                <img class="profile-pic" src="{{class_loader.clazz(i).getClassProjects()[j].getIcon()}}" alt="Profile Picture" style="width: 64px;height: 64px;">
+                {% if class_loader.clazz(i).getClassProjects()[j].hasIcon() %}
+                  <img class="profile-pic" src="{{class_loader.clazz(i).getClassProjects()[j].getIcon()}}" alt="Profile Picture" style="width: 64px;height: 64px;">
+                {% endif %}
                 <h2>H2</h2>
                 <p>paragraph</p>
                 <p>paragraph</p>

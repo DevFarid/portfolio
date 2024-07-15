@@ -13,6 +13,11 @@ body {
     grid-gap: 5vh;
 }
 
+a {
+    color: #fff;
+    text-decoration: none;
+}
+
 ::-webkit-scrollbar, ::-webkit-scrollbar-thumb {
     width: 10px;
     background-color: transparent;

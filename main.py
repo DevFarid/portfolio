@@ -28,8 +28,13 @@ def specific_project(project):
 
 @app.route('/classes/<string:clazz>/projects/<string:project>')
 def specific_classproject(clazz, project):
-    if clazz_loader.hasProject(project):
-        return render_template('project.html', project=clazz_loader.getClassProject(project))
+    if clazz_loader.hasClass(clazz):
+        if clazz_loader.hasProject(clazz, project):
+            return render_template('project.html', project=clazz_loader.getClassProject(project))
+        else:
+            return "Project not found"
+    else:
+        return "Class not found"
     return "404 not found"
 
 @app.route('/courses')

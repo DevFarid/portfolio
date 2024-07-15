@@ -13,8 +13,11 @@
   {% include 'navbar.html' %}
   <div class="container">
     {% if project %}
-    <div class="card">
-        <img class="profile-pic" style="width: 25px;height: 25px;" src="{{project.getIcon()}}" alt="Profile Picture">
+      <div class="card">
+        {% if project.hasIcon() %}
+          <img class="profile-pic" style="width: 25px;height: 25px;" src="{{project.getIcon()}}" alt="Profile Picture">
+        {% endif %}
+      
         <p>{{project.getName()}}</p>
         
         <h2>Creation Date:</h2>

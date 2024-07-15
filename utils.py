@@ -1,6 +1,7 @@
 import configparser
 import os
 import git
+import requests
 
 class project:
 
@@ -63,6 +64,9 @@ class project:
     def getIcon(self):
         return self.icon
 
+    def hasIcon(self):
+        return self.icon is not None
+
     def getCreatedDate(self):
         return self.date
 
@@ -70,6 +74,13 @@ class project:
         return self.lastCommit
 
 class Utilities:
+    @staticmethod
+    def get_repo_info(repo_url):
+        response = requests.get(f"https://api.github.com/repos/{repo_url}")
+        if response.status_code == 200:
+            repo_data = response.json()
+            return repo_data
+
     @staticmethod
     def fileExists(directory, configFile):
         filePath = os.path.join(directory, configFile)
