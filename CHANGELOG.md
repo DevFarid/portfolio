@@ -1,3 +1,9 @@
+## 2.14.0 (2024-07-15)
+
+### Feat
+
+- **classes**: add classes code
+
 ## 2.13.7 (2024-01-14)
 
 ### Refactor
