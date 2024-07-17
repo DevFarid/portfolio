@@ -1,3 +1,9 @@
+## 3.0.0 (2024-07-17)
+
+### Refactor
+
+- **main**: add npm, tailwindcss, re-design all pages, jinja page optimizations, add experience route & page
+
 ## 2.14.0 (2024-07-15)
 
 ### Feat
