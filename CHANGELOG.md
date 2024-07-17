@@ -1,3 +1,9 @@
+## 3.0.2 (2024-07-17)
+
+### Refactor
+
+- **tailwindcss**: clean-up and standardizes heading for pages
+
 ## 3.0.1 (2024-07-17)
 
 ### Refactor
