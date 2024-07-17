@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
   {% if class_loader %}
-  <section class="py-16">
+  <section class="px-20 mt-10">
     <div class="container mx-auto px-4 min-h-screen">
       <div class="flex flex-col items-center mx-auto max-w-screen-lg">
         <div>
-          <h2 class="font-black pb-5 mb-10 text-5xl text-blue-900 before:block">📚 Featured Courses 📚</h2>
+          <h1 class="text-5xl sm:text-6xl lg:text-6xl pb-10 text-center">📚 Featured Courses 📚</h1>
         </div>
         <div class="grid w-full gap-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           
@@ -26,29 +26,5 @@
       </div>
     </div>  
   </section>
-  {% endif %}
-
-
-  {% if class_loader %}
-  <div>
-    {% for i in range(0, class_loader.len()) %}
-      <div>
-        <h2>{{class_loader.getClassName(i)}}</h2>
-        <div>
-          {% for j in range( 0, class_loader.len_of_cproj(i) ) %}
-          <div>
-            <h3><a href="{{url_for('specific_classproject', clazz=class_loader.clazz(i).getName(), project=class_loader.clazz(i).getClassProjects()[j].getName())}}">{{class_loader.clazz(i).getClassProjects()[j].getName().replace('_', ' ')}}</a></h3>
-            {% if class_loader.clazz(i).getClassProjects()[j].hasIcon() %}
-              <img class="profile-pic" src="{{class_loader.clazz(i).getClassProjects()[j].getIcon()}}" alt="Profile Picture" style="width: 64px;height: 64px;">
-            {% endif %}
-            <p><a href="{{class_loader.clazz(i).getClassProjects()[j].getRepoLink()}}"><img class="profile-pic" src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="Github Icon" style="width: 25px;height: 25px;"></a></p>
-          </div>
-          </br>
-          {%endfor%}
-        </div>
-      </div>
-    </br>
-    {%endfor%}
-  </div>
   {% endif %}
 {% endblock %}

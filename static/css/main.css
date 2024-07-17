@@ -3211,6 +3211,11 @@ input:checked + .toggle-bg {
     font-size: 8rem;
     line-height: 1;
   }
+
+  .lg\:text-6xl {
+    font-size: 3.75rem;
+    line-height: 1;
+  }
 }
 
 .rtl\:rotate-180:where([dir="rtl"], [dir="rtl"] *) {
