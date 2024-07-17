@@ -1,3 +1,9 @@
+## 3.0.1 (2024-07-17)
+
+### Refactor
+
+- **images**: remove from github
+
 ## 3.0.0 (2024-07-17)
 
 ### Refactor
