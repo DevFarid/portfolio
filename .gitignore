@@ -8,6 +8,7 @@ node_modules/*
 
 classes/*
 projects/*
+learnings/*
 
 # C extensions
 *.so

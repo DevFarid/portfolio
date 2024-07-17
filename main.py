@@ -1,13 +1,15 @@
-from flask import Flask, render_template, redirect, url_for # type: ignore
+from flask import Flask, render_template, redirect, url_for, send_from_directory # type: ignore
 from projects.project import project_loader
 from classes.clazz import class_loader, clazz
 from experiences.exp import experience_loader
+from learnings.learner import learning_loader
 from utils import *
 import os
 
 proj_loader = project_loader()
 clazz_loader = class_loader()
 exp_loader = experience_loader()
+learn_loader = learning_loader()
 
 app = Flask(__name__)
 app_last_commit_date = Utilities.get_last_commit_date(os.path.dirname(os.path.abspath(__file__)))
@@ -98,7 +100,7 @@ def test():
     """
     Test route for testing purposes.
     """
-    return render_template('test.html')
+    return render_template('test.html', version=version, last_update=app_last_commit_date)
 
 if __name__ == "__main__":
     app.run(debug=True)

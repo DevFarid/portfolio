@@ -1,27 +1,23 @@
 {% extends "base.html" %}
 {% block content %}
   {% if project_loader %}
-
   <section class="px-20 mt-10">
-    <div class="container mx-auto px-4 min-h-screen">
+    <div class="container flex flex-col items-center mx-auto max-w-screen-lg min-h-screen">
       <h1 class="text-5xl sm:text-6xl lg:text-6xl pb-10 text-center">🚀 Featured Projects 🚀</h1>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            <!-- Project Card -->
-
-            {% for i in range(0, project_loader.len()) %}
-
-              <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                  <img src="{{project_loader.getProject(i).getIcon()}}" alt="Project Image" class="w-full h-64 object-cover">
-                  <div class="p-6">
-                      <h3 class="text-2xl font-bold mb-4">{{project_loader.getProjectName(i).replace('_', ' ')}}</h3>
-                      <p class="text-gray-700">This project is so cool, even my cat approves! 🐱</p>
-                      <a href="{{url_for('specific_project', project=project_loader.getProjectName(i))}}" class="block text-blue-600 hover:underline mt-4">Details</a>
-                  </div>
-              </div>
-            
-            {% endfor %}
-            <!-- Repeat for other projects -->
-        </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          <!-- Project Card -->
+          {% for i in range(0, project_loader.len()) %}
+            <div class="bg-white rounded-lg shadow-md overflow-hidden transition-all hover:shadow-2xl">
+                <img src="{{project_loader.getProject(i).getIcon()}}" alt="Project Image" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-2xl font-bold mb-4">{{project_loader.getProjectName(i).replace('_', ' ')}}</h3>
+                    <p class="text-gray-700">This project is so cool, even my cat approves! 🐱</p>
+                    <a href="{{url_for('specific_project', project=project_loader.getProjectName(i))}}" class="block text-blue-600 hover:underline mt-4">Details</a>
+                </div>
+            </div>
+          {% endfor %}
+          <!-- Repeat for other projects -->
+      </div>
     </div>
   </section>   
   {% endif %}

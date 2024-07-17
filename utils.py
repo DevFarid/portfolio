@@ -162,3 +162,23 @@ class Utilities:
             # The last commit in the list is the first ever commit
             first_commit = commits[-1]
             return first_commit.committed_datetime.strftime('%m/%d/%y')
+
+    @staticmethod
+    def get_directory_tree(path, depth=0):
+        tree = {}
+        with os.scandir(path) as it:
+            for entry in it:
+                if entry.is_dir():
+                    tree[entry.name] = (Utilities.get_directory_tree(entry.path, depth + 1), depth)
+                else:
+                    tree[entry.name] = (entry.name, depth)
+        return tree
+
+    @staticmethod
+    def print_tree(tree, depth=0):
+        for name, value in tree.items():
+            if isinstance(value[0], dict):
+                print("  " * depth + f"{name}/ (depth={depth})")
+                Utilities.print_tree(value[0], depth + 1)
+            else:
+                print("  " * depth + f"{name} (depth={depth})")
