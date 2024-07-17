@@ -1,3 +1,9 @@
+## 3.0.3 (2024-07-17)
+
+### Refactor
+
+- **main**: html clean up + add learning routes & pages
+
 ## 3.0.2 (2024-07-17)
 
 ### Refactor
