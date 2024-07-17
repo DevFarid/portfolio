@@ -1,0 +1,34 @@
+<hr class="text-black mx-5" />
+  <footer class="pb-5" style="background: #edf2f7">
+    <div class="max-w-screen-xl px-4 pt-8 mx-auto sm:px-6 lg:px-8">
+      <div class="sm:flex sm:items-center sm:justify-between">
+        <div class="flex justify-center text-teal-300 sm:justify-start">
+          <img class="rounded-full" src="static/images/footer.jpg" width="40" height="40" />
+        </div>
+        
+        <p class="mt-4 text-sm text-center text-gray-400 lg:text-right lg:mt-0">
+          <span class="inline md:block">Last Update:
+            <span class=" mt-2 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-emerald-400 to-green-500 md:inline-block font-bold"> 
+              {% if last_update %}
+                {{ last_update }}
+              {% endif %}
+            </span>
+          </span>
+        </p>
+
+        <p class="mt-4 text-sm text-center text-gray-400 lg:text-right lg:mt-0">
+          <span class="inline md:block">Site Version
+            <span class=" mt-2 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-emerald-400 to-green-500 md:inline-block font-bold"> 
+              {% if version %}
+                <a href="https://github.com/DevFarid/portfolio/commits/main/">{{ version.replace('"', '') }}</a>
+              {% endif %}
+            </span>
+          </span>
+        </p>
+
+        <p class="mt-4 text-sm text-center text-gray-400 lg:text-right lg:mt-0">
+          Built with passion in 2024.
+        </p>
+      </div>
+    </div>
+</footer>

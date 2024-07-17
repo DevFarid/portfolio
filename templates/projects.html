@@ -1,34 +1,28 @@
-{% block styles %}
-    <link rel="stylesheet"  type="text/css" href="{{url_for('static', filename='style.css')}}">
-{% endblock %}
+{% extends "base.html" %}
+{% block content %}
+  {% if project_loader %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <style>
-  </style>
-</head>
-{% include 'head.html' %}
-<body>
-  {% include 'navbar.html' %}
-    {% if project_loader %}
-      <div class="container">
-      {% for i in range(0, project_loader.len()) %}
-        <div class="card" style="max-width: 500px;max-height: 500px;">
-          <h3><a href="{{url_for('specific_project', project=project_loader.getProjectName(i))}}">{{project_loader.getProjectName(i).replace('_', ' ')}}</a></h3>
-          {% if project_loader.getProject(i).hasIcon() %}
-            <img class="profile-pic" src="{{project_loader.getProject(i).getIcon()}}" alt="Profile Picture" style="width: 64px;height: 64px;">
-          {% endif %}
-          <h2>H2</h2>
-          <p>paragraph</p>
-          <p>paragraph</p>
-          {% if project_loader.getProject(i).getRepoLink() %}
-            <p><a href="{{project_loader.getProject(i).getRepoLink()}}"><img class="profile-pic" src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="Github Icon" style="width: 25px;height: 25px;"></a></p>
-          {% endif %}
+  <section class="py-16">
+    <div class="container mx-auto px-4 min-h-screen">
+      <h2 class="font-black pb-5 mb-10 text-5xl text-blue-900 text-center">🚀 Featured Projects 🚀</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <!-- Project Card -->
+
+            {% for i in range(0, project_loader.len()) %}
+
+              <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                  <img src="{{project_loader.getProject(i).getIcon()}}" alt="Project Image" class="w-full h-64 object-cover">
+                  <div class="p-6">
+                      <h3 class="text-2xl font-bold mb-4">{{project_loader.getProjectName(i).replace('_', ' ')}}</h3>
+                      <p class="text-gray-700">This project is so cool, even my cat approves! 🐱</p>
+                      <a href="{{url_for('specific_project', project=project_loader.getProjectName(i))}}" class="block text-blue-600 hover:underline mt-4">Details</a>
+                  </div>
+              </div>
+            
+            {% endfor %}
+            <!-- Repeat for other projects -->
         </div>
-      </br>
-      {% endfor %}
     </div>
-    {% endif %}
-</body>
-</html>
+  </section>   
+  {% endif %}
+{% endblock %}

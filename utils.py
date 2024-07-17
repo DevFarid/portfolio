@@ -1,7 +1,7 @@
 import configparser
 import os
-import git
-import requests
+import git # type: ignore
+import requests # type: ignore
 
 class project:
 

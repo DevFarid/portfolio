@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="flex flex-col items-center justify-center h-screen  -my-20 md:-mt-48 px-8">
+  <!-- style="height: 50vh" -->
+  <div class="flex flex-col items-center justify-center text-center h-screen-half">
+      <!-- image -->
+      <img class="md:hidden object-cover w-15 h-40 rounded-full mb-5 ring-2 ring-gray-500/50 ring-offset-[10px]"
+          src="static/images/me.jpeg" alt="Your Name Here">
+      <h1 class="text-5xl sm:text-6xl lg:text-9xl pb-2">Farid Kamizi</h1>
+      <h2 class="font-light text-4xl sm:text-5xl lg:text-8xl bg-gradient-to-r from-teal-300 to-indigo-500 bg-clip-text text-transparent pb-4">Full-Stack Software Engineer</h2>
+  </div>
+</section>
+
+<section class="flex items-center justify-between px-8 mb-20 tracking-wider">
+  <!-- Summary (left) -->
+  <div class="flex flex-col w-full md:w-1/3 space-y-12 text-center md:text-left">
+      <div class="px-10 md:px-20">
+          <h3 class="text-xl font-bold">Summary</h3>
+          <br>
+          <p class="w-full md:w-2/3">Full-Stack Software Engineer with Expertise in Low-Level Programming, High-Level Pattern Design, and Machine Learning.</p>
+      </div>
+  </div>
+  <!-- image -->
+  <img class="hidden md:block object-cover w-1/4 h-screen rounded-full ring-2 ring-gray-500/50 ring-offset-[30px]"
+      src="static/images/me.jpeg" alt="Farid Kamizi">
+  <!-- statistics (right) -->
+  <div class="hidden md:flex flex-col w-1/3 space-y-12 text-right">
+      <div class="px-20">
+          <h4 class="text-xl font-bold">Experience</h4>
+          <br>
+          <p class="text-6xl"> +{{ exp_loader.len() }} </p>
+      </div>
+      <div class="px-20">
+          <h4 class="text-xl font-bold">Projects</h4>
+          <br>
+          <p class="text-6xl"> +{{ class_loader.len() }} </p>
+      </div>
+  </div>
+</section>
+<hr class="border-gray-400 mx-44" />
+<!-- education -->
+<section class="px-20 mt-10">
+  <h4 class="mb-8 text-3xl font-bold text-center md:text-left">Education</h4>
+  <div class="grid grid-cols-1 md:grid-cols-6 my-10">
+      <div class="flex flex-col col-span-2 mb-4 md:mb-0">
+          <h5 class="text-xl md:text-2xl  font-bold">B.S. Computer Science & Engineering</h5>
+          <h6 class="text-lg font-bold">The Ohio State University</h6>
+          <p>Aug 2020 - May 2024</p>
+      </div>
+  </div>
+</section>
+
+<!-- <div class="container" style="flex-flow: column wrap;">
+    <div class="card" style="width: 60%;">
+      <p>B.S Computer Science & Engineering</p>
+      <p>Ohio State University</p>
+      <p>Web Portfolio.</p>
+      </br>
+
+      <h2>Get in touch</h2>
+      <div>
+        <a href="mailto:faridkamizi@gmail.com"><img src="https://www.iconninja.com/files/1007/41/284/mail-google-gmail-icon.png" style="width: 32px;height: 32px;"></a>
+        <a href="https://www.linkedin.com/in/faridkamizi/" target="_blank"><img src="https://www.bluewolfdental.com/wp-content/uploads/2019/02/Linkedin-Logo-Transparent.png" style="width: 32px;height: 32px;"></a>
+        <a href="{{ url_for('resume') }}" target="_blank"><img src="https://emojis.slackmojis.com/emojis/images/1532717552/4314/word.png" style="width: 32px;height: 32px;"></a>
+      </div>
+      </br>
+    </div>
+  </div> -->
+{% endblock %}
+
+
+
