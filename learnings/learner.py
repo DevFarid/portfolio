@@ -15,6 +15,9 @@ class learning_loader():
     def len(self):
         return len(self.learnings)
     
+    def getLearnings(self):
+        return self.learnings
+
     def getLearningName(self, index):
         return self.learnings[index].getName()
     
@@ -30,6 +33,10 @@ class learning_loader():
                 return l
         return None
     
+    def getTree(self, index):
+        return self.learnings[index].getTree()
+
+    
 class learning():
     def __init__(self, name):
         self.name = name
@@ -39,6 +46,9 @@ class learning():
     def load(self):
         dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self.name)
         self.fileTree = Utilities.get_directory_tree(dir_path)
+
+    def getTree(self):
+        return self.fileTree
 
     def printTree(self):
         Utilities.print_tree(self.fileTree)
@@ -50,5 +60,5 @@ class learning():
 
 if __name__ == "__main__":
     x = learning_loader()
-    print(x.len())
+    print(x.getLearningName(0))
     print(x.getLearning(0).printTree())

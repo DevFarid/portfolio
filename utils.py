@@ -2,28 +2,47 @@ import configparser
 import os
 import git # type: ignore
 import requests # type: ignore
+from collections import defaultdict
 
 class project:
 
-    def __init__(self, name, clazz: str = None, isClassProject: bool = False):
+    def __init__(self, name, clazz: str = None):
         self.name = name
         self.repoLink = None
         self.date = None
         self.lastCommit = None
-
+        self.numOfCommits = None
         self.relative_path = ""
+        self.languagesUsed = []
 
         self.icon = None
 
-        if isClassProject and clazz is not None:
+        self.relative_path = "projects\\" + name
+        if clazz is not None:
             self.relative_path = "classes\\" + clazz + "\\" + name
-        else:
-            self.relative_path = "projects\\" + name
             
         self.loadIcon()
         self.loadRepoLink()
         self.loadGitDate()
         self.loadLastCommit()
+        self.loadCommits()
+        self.loadLanguagesUsed()
+
+    def loadIcon(self):
+        dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self.relative_path)
+        x = Utilities.get_project_icon(dir_path)
+        if x is None:
+            pass
+        else:
+            self.icon = x
+            
+    def loadRepoLink(self):
+        dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self.relative_path)
+        x = Utilities.get_project_git_config_url(dir_path)
+        if x is None:
+            pass
+        else:
+            self.repoLink = x
 
     def loadGitDate(self):
         if self.repoLink is not None:
@@ -39,21 +58,20 @@ class project:
             if x is not None:
                 self.lastCommit = x
 
-    def loadIcon(self):
-        dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self.relative_path)
-        x = Utilities.get_project_icon(dir_path)
-        if x is None:
-            pass
-        else:
-            self.icon = x
+    def loadCommits(self):
+        if self.repoLink is not None:
+            dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self.relative_path)
+            x = Utilities.get_total_commits(dir_path)
+            if x is not None:
+                self.numOfCommits = x
 
-    def loadRepoLink(self):
-        dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self.relative_path)
-        x = Utilities.get_project_git_config_url(dir_path)
-        if x is None:
-            pass
-        else:
-            self.repoLink = x
+    def loadLanguagesUsed(self):
+        if self.repoLink is not None:
+            dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self.relative_path)
+            x = Utilities.get_languages_used(dir_path)
+            if x is not None:
+                self.languagesUsed = x
+
 
     def getRepoLink(self):
         return self.repoLink
@@ -72,8 +90,50 @@ class project:
 
     def getLastCommit(self):
         return self.lastCommit
+    
+    def getNumOfCommits(self):
+        return self.numOfCommits
+    
+    def getLanguagesUsed(self):
+        return ", ".join(self.languagesUsed.keys())
 
 class Utilities:
+    EXTENSION_LANGUAGE_MAP = {
+        '.py': 'Python',
+        '.java': 'Java',
+        '.c': 'C',
+        '.cpp': 'C++',
+        '.cs': 'C#',
+        '.js': 'JavaScript',
+        '.ts': 'TypeScript',
+        '.html': 'HTML',
+        '.css': 'CSS',
+        '.rb': 'Ruby',
+        '.go': 'Go',
+        '.php': 'PHP',
+        '.rs': 'Rust',
+        '.swift': 'Swift',
+        '.kt': 'Kotlin',
+        '.m': 'Objective-C',
+        '.pl': 'Perl',
+        '.sh': 'Shell',
+        # Add more extensions and languages as needed
+    }
+
+    @staticmethod
+    def get_languages_used(repo_path):
+        repo = git.Repo(repo_path)
+        languages = defaultdict(int)
+        
+        # Scan through the working directory for files and their extensions
+        for root, _, files in os.walk(repo.working_tree_dir):
+            for file in files:
+                _, ext = os.path.splitext(file)
+                if ext in Utilities.EXTENSION_LANGUAGE_MAP:
+                    languages[Utilities.EXTENSION_LANGUAGE_MAP[ext]] += 1
+        
+        return languages
+
     @staticmethod
     def get_repo_info(repo_url):
         response = requests.get(f"https://api.github.com/repos/{repo_url}")
@@ -149,6 +209,16 @@ class Utilities:
             default_branch = repo.head.ref.name
             first_commit = list(repo.iter_commits(default_branch, max_count=1))[0]
             return first_commit.committed_datetime.strftime('%m/%d/%y')
+        
+    @staticmethod
+    def get_total_commits(directory):
+        if not os.path.isdir(directory):
+            return None
+        else:
+            repo = git.Repo(directory)
+            default_branch = repo.head.ref.name
+            commits = list(repo.iter_commits(default_branch))
+            return len(commits)
 
     @staticmethod
     def get_creation_date(directory):
@@ -175,10 +245,8 @@ class Utilities:
         return tree
 
     @staticmethod
-    def print_tree(tree, depth=0):
-        for name, value in tree.items():
-            if isinstance(value[0], dict):
-                print("  " * depth + f"{name}/ (depth={depth})")
-                Utilities.print_tree(value[0], depth + 1)
-            else:
-                print("  " * depth + f"{name} (depth={depth})")
+    def retrieve_relative_git_path(directory):
+        link = Utilities.get_project_git_config_url(directory)
+        if link is not None:
+            return link.split("github.com/")[-1].replace('.git', '')
+

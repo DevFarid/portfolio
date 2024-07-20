@@ -28,12 +28,12 @@
       <div class="px-20">
           <h4 class="text-xl font-bold">Experience</h4>
           <br>
-          <p class="text-6xl"> +{{ exp_loader.len() }} </p>
+          <p class="text-6xl"> <a href="{{url_for('experiences')}}">+{{ exp_loader.len() }}</a> </p>
       </div>
       <div class="px-20">
           <h4 class="text-xl font-bold">Projects</h4>
           <br>
-          <p class="text-6xl"> +{{ class_loader.len() }} </p>
+          <p class="text-6xl"> <a href="{{url_for('projects')}}">+{{ class_loader.len() }}</a> </p>
       </div>
   </div>
 </section>

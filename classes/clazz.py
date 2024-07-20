@@ -44,7 +44,7 @@ class clazz:
 
     def load(self):
         dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self.name)
-        self.projects = [project(f, self.name, True) for f in os.listdir(dir_path) if not (f.startswith('__pycache__') or f.endswith(".py"))]
+        self.projects = [project(f, self.name) for f in os.listdir(dir_path) if not (f.startswith('__pycache__') or f.endswith(".py"))]
 
     def getName(self):
         return self.name
