@@ -1,3 +1,9 @@
+## 3.0.4 (2024-07-20)
+
+### Refactor
+
+- **main**: refactor code, re-do some pages, and back-end as well
+
 ## 3.0.3 (2024-07-17)
 
 ### Refactor
