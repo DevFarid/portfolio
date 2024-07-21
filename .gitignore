@@ -9,7 +9,7 @@ node_modules/*
 classes/*
 projects/*
 learnings/*
-experience/*
+experiences/*
 static/js/*
 
 # C extensions
