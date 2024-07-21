@@ -1,3 +1,9 @@
+## 3.0.5 (2024-07-20)
+
+### Refactor
+
+- **main**: clean-up code frontend + backend wise
+
 ## 3.0.4 (2024-07-20)
 
 ### Refactor
