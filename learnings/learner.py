@@ -10,7 +10,7 @@ class learning_loader():
 
     def load(self):
         dir_path = os.path.dirname(os.path.abspath(__file__))
-        self.learnings = [learning(f) for f in os.listdir(dir_path) if not (f.startswith('__pycache__') or f.endswith(".py"))]
+        self.learnings = [learning(f) for f in Utilities.list_directories(dir_path)]
 
     def len(self):
         return len(self.learnings)

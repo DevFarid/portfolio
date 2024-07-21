@@ -10,7 +10,7 @@ class class_loader():
 
     def load(self):
         dir_path = os.path.dirname(os.path.abspath(__file__))
-        self.classes = [clazz(f) for f in os.listdir(dir_path) if not (f.startswith('__pycache__') or f.endswith(".py"))]
+        self.classes = [clazz(f) for f in Utilities.list_directories(dir_path)]
 
     def len(self):
         return len(self.classes)
@@ -35,19 +35,27 @@ class class_loader():
             for p in c.getClassProjects():
                 if p.getName() == project:
                     return p
+                
+    def getProjectCount(self):
+        return sum(c.len() for c in self.classes)
                     
 class clazz:
     def __init__(self, name):
         self.name = name
+        self.formal_name = None
         self.projects = []
         self.load()
 
     def load(self):
         dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self.name)
-        self.projects = [project(f, self.name) for f in os.listdir(dir_path) if not (f.startswith('__pycache__') or f.endswith(".py"))]
+        self.projects = [project(f, self.name) for f in Utilities.list_directories(dir_path)]
+        self.formal_name = Utilities.get_formal_name(dir_path)
 
     def getName(self):
         return self.name
+    
+    def getFormalName(self):
+        return self.formal_name
         
     def len(self):
         return len(self.projects)

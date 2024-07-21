@@ -1,78 +1,106 @@
 {% extends "base.html" %}
 {% block content %}
-<section class="flex flex-col items-center justify-center h-screen  -my-20 md:-mt-48 px-8">
-  <!-- style="height: 50vh" -->
-  <div class="flex flex-col items-center justify-center text-center h-screen-half">
-      <!-- image -->
-      <img class="md:hidden object-cover w-15 h-40 rounded-full mb-5 ring-2 ring-gray-500/50 ring-offset-[10px]"
-          src="static/images/me.jpeg" alt="Your Name Here">
-      <h1 class="text-5xl sm:text-6xl lg:text-9xl pb-2">Farid Kamizi</h1>
-      <h2 class="font-light text-4xl sm:text-5xl lg:text-8xl bg-gradient-to-r from-teal-300 to-indigo-500 bg-clip-text text-transparent pb-4">Full-Stack Software Engineer</h2>
-  </div>
-</section>
-
-<section class="flex items-center justify-between px-8 mb-20 tracking-wider">
-  <!-- Summary (left) -->
-  <div class="flex flex-col w-full md:w-1/3 space-y-12 text-center md:text-left">
-      <div class="px-10 md:px-20">
-          <h3 class="text-xl font-bold">Summary</h3>
-          <br>
-          <p class="w-full md:w-2/3">Full-Stack Software Engineer with Expertise in Low-Level Programming, High-Level Pattern Design, and Machine Learning.</p>
-      </div>
-  </div>
-  <!-- image -->
-  <img class="hidden md:block object-cover w-1/4 h-screen rounded-full ring-2 ring-gray-500/50 ring-offset-[30px]"
-      src="static/images/me.jpeg" alt="Farid Kamizi">
-  <!-- statistics (right) -->
-  <div class="hidden md:flex flex-col w-1/3 space-y-12 text-right">
-      <div class="px-20">
-          <h4 class="text-xl font-bold">Experience</h4>
-          <br>
-          <p class="text-6xl"> <a href="{{url_for('experiences')}}">+{{ exp_loader.len() }}</a> </p>
-      </div>
-      <div class="px-20">
-          <h4 class="text-xl font-bold">Projects</h4>
-          <br>
-          <p class="text-6xl"> <a href="{{url_for('projects')}}">+{{ class_loader.len() }}</a> </p>
-      </div>
-  </div>
-</section>
-<hr class="border-gray-400 mx-44" />
-<!-- education -->
-<section class="px-20 mt-10">
-  <h4 class="mb-8 text-3xl font-bold text-center md:text-left">Education</h4>
-  <div class="grid grid-cols-1 md:grid-cols-6 my-10">
-      <div class="flex flex-col col-span-2 mb-4 md:mb-0">
-        <h5 class="w-full md:w-1/3 text-center md:text-left text-xl md:text-2xl font-bold pb-5">B.S. Computer Science & Engineering</h5>
-          <h6 class="text-lg font-bold">The Ohio State University</h6>
-          <p>Aug 2020 - May 2024</p>
-      </div>  
-      <div class="flex flex-col col-span-4 ">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid eveniet deleniti tempore veritatis
-              adipisci accusantium voluptatibus vel aperiam ex alias officiis deserunt, ad, iste id cum minus sit
-              laudantium ullam! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi non incidunt
-              voluptates molestiae delectus nulla quisquam aperiam voluptas tempora distinctio! Ipsa cupiditate
-              harum voluptates praesentium. Suscipit itaque officiis odio ut!</p>
-      </div>
-  </div>
-</section>
-
-<!-- <div class="container" style="flex-flow: column wrap;">
-    <div class="card" style="width: 60%;">
-      <p>B.S Computer Science & Engineering</p>
-      <p>Ohio State University</p>
-      <p>Web Portfolio.</p>
-      </br>
-
-      <h2>Get in touch</h2>
-      <div>
-        <a href="mailto:faridkamizi@gmail.com"><img src="https://www.iconninja.com/files/1007/41/284/mail-google-gmail-icon.png" style="width: 32px;height: 32px;"></a>
-        <a href="https://www.linkedin.com/in/faridkamizi/" target="_blank"><img src="https://www.bluewolfdental.com/wp-content/uploads/2019/02/Linkedin-Logo-Transparent.png" style="width: 32px;height: 32px;"></a>
-        <a href="{{ url_for('resume') }}" target="_blank"><img src="https://emojis.slackmojis.com/emojis/images/1532717552/4314/word.png" style="width: 32px;height: 32px;"></a>
-      </div>
-      </br>
+  <section class="flex flex-col items-center justify-center h-screen  -my-20 md:-mt-48 px-8">
+    <!-- style="height: 50vh" -->
+    <div class="flex flex-col items-center justify-center text-center h-screen-half">
+        <!-- image -->
+        <img class="md:hidden object-cover w-15 h-40 rounded-full mb-5 ring-2 ring-gray-500/50 ring-offset-[10px]"
+            src="static/images/me.jpeg" alt="Your Name Here">
+        <h1 class="text-5xl sm:text-6xl lg:text-9xl pb-2">Farid Kamizi</h1>
+        <h2 class="font-light text-4xl sm:text-5xl lg:text-8xl bg-gradient-to-r from-teal-300 to-indigo-500 bg-clip-text text-transparent pb-4">Full-Stack Software Engineer</h2>
     </div>
-  </div> -->
+  </section>
+
+  <section class="flex items-center justify-between px-8 mb-20 tracking-wider">
+    <!-- Summary (left) -->
+    <div class="flex flex-col w-full md:w-1/3 space-y-12 text-center md:text-left">
+        <div class="px-10 md:px-20">
+            <h3 class="text-xl font-bold">Summary</h3>
+            <br>
+            <p class="w-full md:w-2/3">Full-Stack Software Engineer with Expertise in Low-Level Programming, High-Level Pattern Design, and Machine Learning.</p>
+        </div>
+    </div>
+    <!-- image -->
+    <img class="hidden md:block object-cover w-1/4 h-screen rounded-full ring-2 ring-gray-500/50 ring-offset-[30px]"
+        src="static/images/me.jpeg" alt="Farid Kamizi">
+    <!-- statistics (right) -->
+    <div class="hidden md:flex flex-col w-1/3 space-y-12 text-right">
+        <div class="px-20">
+            <h4 class="text-xl font-bold">Experience</h4>
+            <br>
+            <p class="text-6xl"> <a href="{{url_for('experiences')}}">+{{ exp_loader.len() }}</a> </p>
+        </div>
+        <div class="px-20">
+            <h4 class="text-xl font-bold">Projects</h4>
+            <br>
+            <p class="text-6xl"> <a href="{{url_for('projects')}}">+{{ project_loader.len() + class_loader.getProjectCount() }}</a> </p>
+            <p class="opacity-0 hover:opacity-100 duration-300">includes <a href="{{url_for('courses')}}" class="bg-sky-500 hover:bg-red-700 bg-clip-text">course</a> projects as well.</p>
+        </div>
+    </div>
+  </section>
+  <hr class="border-gray-400 mx-44" />
+  <!-- education -->
+  <section class="px-20 mt-10">
+    <h4 class="mb-8 text-3xl font-bold text-center md:text-left">Education</h4>
+    <div class="grid grid-cols-1 md:grid-cols-6 my-10">
+        <div class="flex flex-col col-span-2 mb-4 md:mb-0">
+          <h5 class="w-full md:w-1/3 md:text-left text-xl md:text-2xl font-bold pb-5">B.S. Computer Science & Engineering</h5>
+            <h6 class="text-lg font-bold">The Ohio State University</h6>
+            <p>Aug 2020 - May 2024</p>
+        </div>  
+        <div class="flex flex-col col-span-4 ">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid eveniet deleniti tempore veritatis
+                adipisci accusantium voluptatibus vel aperiam ex alias officiis deserunt, ad, iste id cum minus sit
+                laudantium ullam! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi non incidunt
+                voluptates molestiae delectus nulla quisquam aperiam voluptas tempora distinctio! Ipsa cupiditate
+                harum voluptates praesentium. Suscipit itaque officiis odio ut!</p>
+        </div>
+    </div>
+    <hr class="border-gray-400 mx-44" />
+
+    <h4 class="text-3xl font-bold text-center md:text-center mt-5 pt-5 ">Get in Touch</h4>
+    <div class="w-full h-auto py-8 flex items-center justify-center gap-4 flex-wrap mb-2">    
+      <!-- GitHub -->
+      <a href="https://www.github.com/DevFarid" target="_blank"
+        class="w-10 h-10 flex items-center justify-center rounded-lg group transition-all duration-300">
+        <svg class="rounded-md transition-all duration-300 group-hover:scale-110" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 0C5.37258 0 0 5.37258 0 12C0 17.302 3.43815 21.6144 8.20703 23.1915C8.80703 23.307 9.02539 22.9301 9.02539 22.6016V20.4688C5.68359 21.0547 4.97266 18.8789 4.97266 18.8789C4.43848 17.5684 3.68164 17.2852 3.68164 17.2852C2.60156 16.6582 3.75684 16.6719 3.75684 16.6719C4.93945 16.7559 5.56152 17.9307 5.56152 17.9307C6.5918 19.5791 8.16699 19.1113 8.75 18.8477C8.86816 18.0898 9.16016 17.6055 9.48828 17.3281C6.91406 17.0469 4.13672 16.0234 4.13672 11.4219C4.13672 10.1328 4.62109 9.08203 5.39258 8.28711C5.25 8.00586 4.82812 6.75781 5.50586 5.10938C5.50586 5.10938 6.49805 4.79883 9.02344 6.4043C9.92188 6.14844 10.8828 6.01562 11.8438 6.01172C12.8047 6.01562 13.7656 6.14844 14.6641 6.4043C17.1895 4.79883 18.1816 5.10938 18.1816 5.10938C18.8594 6.75781 18.4375 8.00586 18.2949 8.28711C19.0664 9.08203 19.5508 10.1328 19.5508 11.4219C19.5508 16.0391 16.7637 17.0449 14.1816 17.3281C14.6104 17.7012 14.9922 18.4609 14.9922 19.5391V22.6016C14.9922 22.9336 15.2109 23.3105 15.8105 23.1915C20.5791 21.6144 24 17.302 24 12C24 5.37258 18.6274 0 12 0Z" fill="#181616"/>
+        </svg>
+      </a>    
+
+      <!-- Linekdin -->
+      <a href="https://www.linkedin.com/in/faridkamizi/" target="_blank"
+        class="w-10 h-10 flex items-center justify-center rounded-lg group transition-all duration-300">
+        <svg class="rounded-md transition-all duration-300 group-hover:scale-110" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 72 72" fill="none">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M14.6975 11C12.6561 11 11 12.6057 11 14.5838V57.4474C11 59.4257 12.6563 61.03 14.6975 61.03H57.3325C59.3747 61.03 61.03 59.4255 61.03 57.4468V14.5838C61.03 12.6057 59.3747 11 57.3325 11H14.6975ZM26.2032 30.345V52.8686H18.7167V30.345H26.2032ZM26.6967 23.3793C26.6967 25.5407 25.0717 27.2703 22.4615 27.2703L22.4609 27.2701H22.4124C19.8998 27.2701 18.2754 25.5405 18.2754 23.3791C18.2754 21.1686 19.9489 19.4873 22.5111 19.4873C25.0717 19.4873 26.6478 21.1686 26.6967 23.3793ZM37.833 52.8686H30.3471L30.3469 52.8694C30.3469 52.8694 30.4452 32.4588 30.3475 30.3458H37.8336V33.5339C38.8288 31.9995 40.6098 29.8169 44.5808 29.8169C49.5062 29.8169 53.1991 33.0363 53.1991 39.9543V52.8686H45.7133V40.8204C45.7133 37.7922 44.6293 35.7269 41.921 35.7269C39.8524 35.7269 38.6206 37.1198 38.0796 38.4653C37.8819 38.9455 37.833 39.6195 37.833 40.2918V52.8686Z" fill="#006699"/>
+        </svg>
+      </a>
+      
+      <!-- Google -->
+      <a href="mailto:faridkamizi@gmail.com"
+        class="w-10 h-10 flex items-center justify-center rounded-lg group transition-all duration-300">
+        <svg class="rounded-md transition-all duration-300 group-hover:scale-110" width="28" height="28" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13.0065 56.1236H21.4893V35.5227L9.37109 26.4341V52.4881C9.37109 54.4997 11.001 56.1236 13.0065 56.1236Z" fill="#4285F4"/>
+        <path d="M50.5732 56.1236H59.056C61.0676 56.1236 62.6914 54.4937 62.6914 52.4881V26.4341L50.5732 35.5227" fill="#34A853"/>
+        <path d="M50.5732 19.7693V35.5229L62.6914 26.4343V21.587C62.6914 17.0912 57.5594 14.5282 53.9663 17.2245" fill="#FBBC04"/>
+        <path d="M21.4893 35.5227V19.769L36.0311 30.6754L50.5729 19.769V35.5227L36.0311 46.429" fill="#EA4335"/>
+        <path d="M9.37109 21.587V26.4343L21.4893 35.5229V19.7693L18.0962 17.2245C14.4971 14.5282 9.37109 17.0912 9.37109 21.587Z" fill="#C5221F"/>
+        </svg>           
+      </a>
+
+      <!-- Resume -->
+      <a href="{{url_for('resume')}}"
+        class="w-10 h-10 flex items-center justify-center rounded-lg group transition-all duration-300">
+        <svg class="rounded-md transition-all duration-300 group-hover:scale-110" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 64 64" fill="none">
+          <path d="M12 2C10.3431 2 9 3.34315 9 5V59C9 60.6569 10.3431 62 12 62H52C53.6569 62 55 60.6569 55 59V17L39 2H12Z" fill="#E0E0E0"/>
+          <path d="M39 2V14C39 15.6569 40.3431 17 42 17H55L39 2Z" fill="#BDBDBD"/>
+          <rect x="14" y="24" width="36" height="4" rx="2" fill="#757575"/>
+          <rect x="14" y="34" width="36" height="4" rx="2" fill="#757575"/>
+          <rect x="14" y="44" width="24" height="4" rx="2" fill="#757575"/>
+        </svg>
+      </a>
+    </div>
+  </section>
 {% endblock %}
 
 

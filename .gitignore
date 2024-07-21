@@ -9,6 +9,8 @@ node_modules/*
 classes/*
 projects/*
 learnings/*
+experience/*
+static/js/*
 
 # C extensions
 *.so

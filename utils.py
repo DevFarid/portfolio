@@ -3,6 +3,7 @@ import os
 import git # type: ignore
 import requests # type: ignore
 from collections import defaultdict
+import markdown # type: ignore
 
 class project:
 
@@ -14,6 +15,8 @@ class project:
         self.numOfCommits = None
         self.relative_path = ""
         self.languagesUsed = []
+        self.readmeContents = None
+        self.shortDescription = None
 
         self.icon = None
 
@@ -27,10 +30,12 @@ class project:
         self.loadLastCommit()
         self.loadCommits()
         self.loadLanguagesUsed()
+        self.loadReadme()
+        self.loadShortDescription()
 
     def loadIcon(self):
         dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self.relative_path)
-        x = Utilities.get_project_icon(dir_path)
+        x = Utilities.get_project_info(dir_path, 'url')
         if x is None:
             pass
         else:
@@ -72,6 +77,23 @@ class project:
             if x is not None:
                 self.languagesUsed = x
 
+    def loadReadme(self):
+        x = None
+        read_me_path = os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), self.relative_path), 'README.md')
+        if not os.path.exists(read_me_path):
+            return None
+        with open(read_me_path, "r", encoding='utf-8') as md_file:
+            md_content = md_file.read()
+            x = markdown.markdown(md_content, extensions=["fenced_code", "codehilite"])
+            if x is not None:
+                self.readmeContents = x
+
+    def loadShortDescription(self):
+        x = None
+        dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self.relative_path)
+        x = Utilities.get_project_info(dir_path, 'desc')
+        if x is not None:
+            self.shortDescription = x
 
     def getRepoLink(self):
         return self.repoLink
@@ -96,6 +118,15 @@ class project:
     
     def getLanguagesUsed(self):
         return ", ".join(self.languagesUsed.keys())
+    
+    def getReadME(self):
+        return self.readmeContents
+    
+    def hasReadME(self):
+        return self.readmeContents is not None
+    
+    def getShortDescription(self):
+        return self.shortDescription
 
 class Utilities:
     EXTENSION_LANGUAGE_MAP = {
@@ -116,8 +147,7 @@ class Utilities:
         '.kt': 'Kotlin',
         '.m': 'Objective-C',
         '.pl': 'Perl',
-        '.sh': 'Shell',
-        # Add more extensions and languages as needed
+        '.sh': 'Shell'
     }
 
     @staticmethod
@@ -185,8 +215,8 @@ class Utilities:
                     # raise ValueError(f"Failed to retrieve version from pyproject.toml: {e}")
     
     @staticmethod
-    def get_project_icon(directory):
-        filePath = Utilities.fileExists(directory, 'logoconfig')
+    def get_project_info(directory, key):
+        filePath = Utilities.fileExists(directory, '.portfolio')
         if filePath is not None:
             with open(filePath, 'r', encoding='utf-8') as config_file:
                 config_content = config_file.read()
@@ -195,7 +225,7 @@ class Utilities:
                 config_parser.read_string(config_content)
 
                 try:
-                    logolink = config_parser.get('logoconfig', 'url')
+                    logolink = config_parser.get('proj_config', key)
                     return logolink
                 except (configparser.NoSectionError, configparser.NoOptionError) as e:
                     return None
@@ -250,3 +280,48 @@ class Utilities:
         if link is not None:
             return link.split("github.com/")[-1].replace('.git', '')
 
+
+    @staticmethod
+    def read_experience_config(directory):
+        experience_file = Utilities.fileExists(directory, '.experience')
+        if experience_file is None:
+            return None
+        config = configparser.ConfigParser()
+        with open(experience_file, 'r', encoding='utf-8') as file:
+            config.read_file(file)
+        title = config['experience_config']['title']
+        date = config['experience_config']['date']
+        n = int(config['experience_config']['n'])
+        job_functions = [config['experience_config'][f'jobFunction{i}'] for i in range(n)]
+        return title, date, job_functions
+    
+    @staticmethod
+    def get_formal_name(directory):
+        fileExists = Utilities.fileExists(directory, '.class')
+        if fileExists is None:
+            return None
+        config = configparser.ConfigParser()
+        with open(fileExists, 'r', encoding='utf-8') as file:
+            config.read_file(file)
+        return config['class_config']['formal_name']
+    
+    @staticmethod
+    def list_directories(dir_path):
+        try:
+            # List all entries in the directory
+            entries = os.listdir(dir_path)
+            
+            # Filter out non-directories and the __pycache__ directory
+            directories = [
+                entry for entry in entries
+                if os.path.isdir(os.path.join(dir_path, entry)) and entry != '__pycache__'
+            ]
+            
+            return directories
+        
+        except FileNotFoundError:
+            print(f"Error: The directory {dir_path} does not exist.")
+            return []
+        except PermissionError:
+            print(f"Error: Permission denied to access {dir_path}.")
+            return []

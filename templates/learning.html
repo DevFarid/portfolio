@@ -1,44 +1,31 @@
 {% extends "base.html" %}
 {% block content %}
-  <style>
-    .folder {
-      cursor: pointer;
-      user-select: none;
-    }
-    .nested {
-      display: none;
-    }
-    .active {
-      display: block;
-    }
-  </style>
+  <section class="px-20 mt-10">
+      {% if learning %}
+        <div class="container flex flex-col items-center mx-auto max-w-screen-lg">
+            <h1 class="text-5xl sm:text-6xl lg:text-6xl pb-2 text-center">🧠 {{ learning.getName() }} 🧠</h1>
+        </div>
 
-    <section class="px-20 mt-10">
-        {% if learning %}
-          <div class="container flex flex-col items-center mx-auto max-w-screen-lg">
-              <h1 class="text-5xl sm:text-6xl lg:text-6xl pb-2 text-center">🧠 {{ learning.getName() }} 🧠</h1>
-          </div>
+        <div class="max-w-md mx-auto rounded-lg overflow-hidden">
+            <ul class="list-none p-4 m-2">
+            {% macro render_tree(tree) %}
+                {% for name, value in tree.items() %}
+                {% if value[0] is mapping %}
+                    <li class="mb-2">
+                    <span class="folder">📁 {{ name }}</span>
+                    <ul class="ml-4 nested mt-2">
+                        {{ render_tree(value[0]) }}
+                    </ul>
+                    </li>
+                {% else %}
+                    <li>📄 {{ name }}</li>
+                {% endif %}
+                {% endfor %}
+            {% endmacro %}
 
-          <div class="max-w-md mx-auto rounded-lg overflow-hidden">
-              <ul class="list-none p-4 m-2">
-              {% macro render_tree(tree) %}
-                  {% for name, value in tree.items() %}
-                  {% if value[0] is mapping %}
-                      <li class="mb-2">
-                      <span class="folder">📁 {{ name }}</span>
-                      <ul class="ml-4 nested mt-2">
-                          {{ render_tree(value[0]) }}
-                      </ul>
-                      </li>
-                  {% else %}
-                      <li>📄 {{ name }}</li>
-                  {% endif %}
-                  {% endfor %}
-              {% endmacro %}
-
-              {{ render_tree(learning.getTree()) }}
-              </ul>
-          </div>
-      {% endif %}
-    </section>
+            {{ render_tree(learning.getTree()) }}
+            </ul>
+        </div>
+    {% endif %}
+  </section>
 {% endblock %}

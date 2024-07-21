@@ -1,16 +1,8 @@
-<style>
-    @media (min-width: 1024px) {
-        .top-navbar {
-        display: inline-flex !important;
-        }
-    }
-</style>
-<script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
 <header class="header sticky top-0 p-2 bg-white shadow-md flex items-center justify-between px-8 py-02">
     <nav class="border-gray-200 mx-auto">
         <div class="container mx-auto flex flex-wrap items-center justify-between">
             <span class="self-center text-lg font-semibold pr-10 whitespace-nowrap">Farid Kamizi</span>
-            <button data-target="#mobile-menu" type="button" class="md:hidden ml-3 text-gray-400 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-300 rounded-lg inline-flex items-center justify-center nav-toggler">
+            <button data-collapse-toggle="mobile-menu" type="button" class="md:hidden ml-3 text-gray-400 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-300 rounded-lg inline-flex items-center justify-center nav-toggler">
                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
                 <svg class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
             </button>
@@ -41,18 +33,4 @@
         </nav>
     </div>
 </header>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
-<script>
-    $(document).ready(function() {
-    $(".nav-toggler").each(function(_, navToggler) {
-      var target = $(navToggler).data("target");
-      $(navToggler).on("click", function() {
-        $(target).animate({
-          height: "toggle"
-        });
-      });
-    });
-  });
-  
-  </script>
+<script src="{{url_for('static', filename='js/flowbite.js')}}"></script>
