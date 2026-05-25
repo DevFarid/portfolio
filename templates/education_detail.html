@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+  {% if education %}
+  <div class="card">
+    <h1>{{education.getName()}}</h1>
+    <h2>{{education.getDegree()}}</h2>
+    <h3>{{education.getSchool()}}</h3>
+    <p>{{education.getDate()}}</p>
+    <p>{{education.getDescription()}}</p>
+  </div>
+  {% endif %}
+{% endblock %}

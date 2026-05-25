@@ -5,6 +5,7 @@ from projects.project import project_loader
 from classes.clazz import class_loader, clazz
 from experiences.exp import experience_loader
 from learnings.learner import learning_loader
+from education.edu import education_loader
 from utils import *
 import os
 
@@ -12,6 +13,7 @@ proj_loader = project_loader()
 clazz_loader = class_loader()
 exp_loader = experience_loader()
 learn_loader = learning_loader()
+edu_loader = education_loader()
 
 app = Flask(__name__)
 # Configure security headers with Flask-Talisman
@@ -42,7 +44,7 @@ def index(name=None):
     Main index page. 
     Any invalid page will also just render index page.
     """
-    return render_template('about.html', version=version, last_update=app_last_commit_date, class_loader=clazz_loader, project_loader=proj_loader, exp_loader=exp_loader) 
+    return render_template('about.html', version=version, last_update=app_last_commit_date, class_loader=clazz_loader, project_loader=proj_loader, exp_loader=exp_loader, edu_loader=edu_loader) 
 
 @app.errorhandler(404)
 def not_found_error(error):
@@ -149,8 +151,33 @@ def specific_experience(experience):
         return render_template('error.html', error_message="Invalid experience name"), 400
     
     if exp_loader.hasExperience(experience):
-        return render_template('experience.html', experience=exp_loader.getExperienceByName(experience), version=version, last_update=app_last_commit_date) 
+        return render_template('experience.html', experience=exp_loader.getExperienceByName(experience), version=version, last_update=app_last_commit_date)
     return render_template('error.html', error_message="Experience not found"), 404
+
+# ------------------------------------------------ Education ---------------------------------------------------------------
+
+@app.route('/education')
+@app.route('/education.html')
+def education_page():
+    """
+    Education page for education route.
+    """
+    return render_template('education.html', edu_loader=edu_loader, version=version, last_update=app_last_commit_date) 
+
+
+@app.route('/education/<string:education>')
+@app.route('/education.html/<string:education>')
+def specific_education(education):
+    """
+    Specific education page for the said education route.
+    """
+    # Basic validation to prevent path traversal
+    if '..' in education or '/' in education or '\\' in education:
+        return render_template('error.html', error_message="Invalid education name"), 400
+    
+    if edu_loader.hasEducation(education):
+        return render_template('education_detail.html', education=edu_loader.getEducationByName(education), version=version, last_update=app_last_commit_date) 
+    return render_template('error.html', error_message="Education not found"), 404
 
 # --------------------------------------------- Static Files & Routes ---------------------------------------------------------
 @app.route('/resume')

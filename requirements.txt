@@ -54,7 +54,4 @@ typing_extensions>=4.12.0
 importlib-metadata>=8.0.0
 importlib-resources>=6.4.0
 zipp>=3.19.0
-shelligham>=1.5.4
-
-# Security & Sanitization
-bleach>=6.1.0
+shellingham>=1.5.4
