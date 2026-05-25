@@ -55,6 +55,14 @@ def not_found_error(error):
 def internal_error(error):
     return render_template('error.html', error_message="Internal server error"), 500
 
+@app.errorhandler(404)
+def not_found_error(error):
+    return render_template('error.html', error_message="Page not found"), 404
+
+@app.errorhandler(500)
+def internal_error(error):
+    return render_template('error.html', error_message="Internal server error"), 500
+
 # ------------------------------------------------ Courses ---------------------------------------------------------------
 
 @app.route('/courses')
@@ -179,7 +187,6 @@ def specific_education(education):
     if edu_loader.hasEducation(education):
         return render_template('education_detail.html', education=edu_loader.getEducationByName(education), version=version, last_update=app_last_commit_date) 
     return render_template('error.html', error_message="Education not found"), 404
-
 
 # --------------------------------------------- Static Files & Routes ---------------------------------------------------------
 @app.route('/resume')
