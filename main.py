@@ -7,6 +7,7 @@ from experiences.exp import experience_loader
 from learnings.learner import learning_loader
 from utils import *
 import os
+import re
 
 proj_loader = project_loader()
 clazz_loader = class_loader()
@@ -14,7 +15,22 @@ exp_loader = experience_loader()
 learn_loader = learning_loader()
 
 app = Flask(__name__)
-Talisman(app)
+# Configure security headers with Flask-Talisman
+Talisman(app, content_security_policy={
+    'default-src': "'self'",
+    'script-src': "'self'",
+    'style-src': "'self' 'unsafe-inline'",
+    'img-src': "'self' data: https:",
+    'font-src': "'self' data:",
+    'connect-src': "'self'",
+    'media-src': "'self'",
+    'frame-src': "'self'",
+    'object-src': "'none'",
+    'base-uri': "'self'",
+    'form-action': "'self'",
+    'frame-ancestors': "'none'",
+    'sandbox': 'allow-same-origin allow-scripts allow-forms allow-popups'
+})
 csrf = CSRFProtect(app)
 
 app_last_commit_date = Utilities.get_last_commit_date(os.path.dirname(os.path.abspath(__file__)))
@@ -28,6 +44,14 @@ def index(name=None):
     Any invalid page will also just render index page.
     """
     return render_template('about.html', version=version, last_update=app_last_commit_date, class_loader=clazz_loader, project_loader=proj_loader, exp_loader=exp_loader) 
+
+@app.errorhandler(404)
+def not_found_error(error):
+    return render_template('error.html', error_message="Page not found"), 404
+
+@app.errorhandler(500)
+def internal_error(error):
+    return render_template('error.html', error_message="Internal server error"), 500
 
 # ------------------------------------------------ Courses ---------------------------------------------------------------
 
@@ -44,13 +68,17 @@ def specific_classproject(clazz, project):
     """
     Specific project page for the said class project route.
     """
+    # Basic validation to prevent path traversal
+    if '..' in clazz or '..' in project or '/' in clazz or '/' in project or '\\' in clazz or '\\' in project:
+        return render_template('error.html', error_message="Invalid class or project name"), 400
+    
     if clazz_loader.hasClass(clazz):
         if clazz_loader.hasProject(clazz, project):
             return render_template('project.html', project=clazz_loader.getClassProject(project), version=version, last_update=app_last_commit_date) 
         else:
-            return "Project not found"
+            return render_template('error.html', error_message="Project not found"), 404
     else:
-        return "Class not found"
+        return render_template('error.html', error_message="Class not found"), 404
 
 # ------------------------------------------------ Projects ---------------------------------------------------------------
 
@@ -69,9 +97,13 @@ def specific_project(project):
     """
     Specific project page for the said project route.
     """
+    # Basic validation to prevent path traversal
+    if '..' in project or '/' in project or '\\' in project:
+        return render_template('error.html', error_message="Invalid project name"), 400
+    
     if proj_loader.hasProject(project):
         return render_template('project.html', project=proj_loader.getProjectByName(project), version=version, last_update=app_last_commit_date) 
-    return "404 not found"
+    return render_template('error.html', error_message="Project not found"), 404
 
 # ------------------------------------------------ Learnings ---------------------------------------------------------------
 
@@ -89,9 +121,13 @@ def specific_learning(learn):
     """
     Specific learning page for the said learning route.
     """
+    # Basic validation to prevent path traversal
+    if '..' in learn or '/' in learn or '\\' in learn:
+        return render_template('error.html', error_message="Invalid learning name"), 400
+    
     if learn_loader.hasLearning(learn):
         return render_template('learning.html', learning=learn_loader.getLearningByName(learn), version=version, last_update=app_last_commit_date) 
-    return "404 not found"
+    return render_template('error.html', error_message="Learning not found"), 404
 # ------------------------------------------------ Experiences ---------------------------------------------------------------
 
 @app.route('/experiences')
@@ -109,9 +145,13 @@ def specific_experience(experience):
     """
     Specific experience page for the said experience route.
     """
+    # Basic validation to prevent path traversal
+    if '..' in experience or '/' in experience or '\\' in experience:
+        return render_template('error.html', error_message="Invalid experience name"), 400
+    
     if exp_loader.hasExperience(experience):
         return render_template('experience.html', experience=exp_loader.getExperienceByName(experience), version=version, last_update=app_last_commit_date) 
-    return "404 not found"
+    return render_template('error.html', error_message="Experience not found"), 404
 
 # --------------------------------------------- Static Files & Routes ---------------------------------------------------------
 @app.route('/resume')
