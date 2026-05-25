@@ -6,7 +6,6 @@ from collections import defaultdict
 import markdown # type: ignore
 import bleach # type: ignore
 import re # type: ignore
-import bleach # type: ignore
 
 class project:
 
@@ -332,12 +331,4 @@ class Utilities:
             print(f"Error: Permission denied to access {dir_path}.")
             return []
     
-    @staticmethod
-    def is_valid_identifier(name):
-        """Check if a name is a valid identifier (no path traversal characters)"""
-        if not name:
-            return False
-        # Check for path traversal characters
-        if re.search(r'[./\\]', name):
-            return False
-        return True
+ 

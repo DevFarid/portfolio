@@ -7,7 +7,6 @@ from experiences.exp import experience_loader
 from learnings.learner import learning_loader
 from utils import *
 import os
-import re
 
 proj_loader = project_loader()
 clazz_loader = class_loader()
