@@ -312,6 +312,20 @@ class Utilities:
         return config['class_config']['formal_name']
     
     @staticmethod
+    def read_education_config(directory):
+        education_file = Utilities.fileExists(directory, '.education')
+        if education_file is None:
+            return None
+        config = configparser.ConfigParser()
+        with open(education_file, 'r', encoding='utf-8') as file:
+            config.read_file(file)
+        degree = config['education_config']['degree']
+        school = config['education_config']['school']
+        date = config['education_config']['date']
+        description = config['education_config'].get('description', '')
+        return degree, school, date, description
+    
+    @staticmethod
     def list_directories(dir_path):
         try:
             # List all entries in the directory
