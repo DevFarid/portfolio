@@ -8,7 +8,6 @@ from learnings.learner import learning_loader
 from education.edu import education_loader
 from utils import *
 import os
-import re
 
 proj_loader = project_loader()
 clazz_loader = class_loader()
@@ -46,14 +45,6 @@ def index(name=None):
     Any invalid page will also just render index page.
     """
     return render_template('about.html', version=version, last_update=app_last_commit_date, class_loader=clazz_loader, project_loader=proj_loader, exp_loader=exp_loader, edu_loader=edu_loader) 
-
-@app.errorhandler(404)
-def not_found_error(error):
-    return render_template('error.html', error_message="Page not found"), 404
-
-@app.errorhandler(500)
-def internal_error(error):
-    return render_template('error.html', error_message="Internal server error"), 500
 
 @app.errorhandler(404)
 def not_found_error(error):
