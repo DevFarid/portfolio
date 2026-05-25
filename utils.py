@@ -4,6 +4,8 @@ import git # type: ignore
 import requests # type: ignore
 from collections import defaultdict
 import markdown # type: ignore
+import bleach # type: ignore
+import re # type: ignore
 
 class project:
 
@@ -20,9 +22,9 @@ class project:
 
         self.icon = None
 
-        self.relative_path = "projects\\" + name
+        self.relative_path = os.path.join("projects", name)
         if clazz is not None:
-            self.relative_path = "classes\\" + clazz + "\\" + name
+            self.relative_path = os.path.join("classes", clazz, name)
             
         self.loadIcon()
         self.loadRepoLink()
@@ -86,7 +88,10 @@ class project:
             md_content = md_file.read()
             x = markdown.markdown(md_content, extensions=["fenced_code", "codehilite"])
             if x is not None:
-                self.readmeContents = x
+                # Sanitize the HTML to prevent XSS
+                allowed_tags = ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'strong', 'em', 'u', 'ol', 'ul', 'li', 'code', 'pre', 'blockquote', 'a', 'img']
+                allowed_attributes = {'a': ['href', 'title'], 'img': ['src', 'alt']}
+                self.readmeContents = bleach.clean(x, tags=allowed_tags, attributes=allowed_attributes)
 
     def loadShortDescription(self):
         x = None
@@ -325,3 +330,5 @@ class Utilities:
         except PermissionError:
             print(f"Error: Permission denied to access {dir_path}.")
             return []
+    
+ 
