@@ -1,0 +1,25 @@
+{# templates/_tree.html #}
+{# Shared folder tree rendering macro #}
+{% macro render_tree(tree, base_depth=0, clickable=False, path_prefix='') %}
+    <ul class="list-none {{ 'nested' if base_depth > 0 }}">
+    {% for name, value in tree.items() %}
+        {% set current_path = path_prefix + '/' + name if path_prefix else name %}
+        {% if value[0] is mapping %}
+            <li class="mb-2">
+                <span class="folder text-gray-700">📁 {{ name }}</span>
+                <ul class="ml-4 nested mt-2">
+                    {{ render_tree(value[0], base_depth + 1, clickable, current_path) }}
+                </ul>
+            </li>
+        {% else %}
+            <li>
+                {% if clickable and name == 'README.md' %}
+                    <span class="readme-link cursor-pointer text-blue-600 hover:text-blue-800 hover:underline" data-readme-path="{{ current_path }}" onclick="showReadme(this, event)">📄 {{ name }}</span>
+                {% else %}
+                    <span class="text-gray-600">📄 {{ name }}</span>
+                {% endif %}
+            </li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+{% endmacro %}

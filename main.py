@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, send_from_directory # type: ignore
+from flask import Flask, render_template, redirect, url_for, send_from_directory, jsonify # type: ignore
 from flask_talisman import Talisman # type: ignore
 from flask_wtf.csrf import CSRFProtect # type: ignore
 from projects.project import project_loader
@@ -78,8 +78,20 @@ def specific_classproject(clazz, project):
             return render_template('project.html', project=clazz_loader.getClassProject(project), version=version, last_update=app_last_commit_date) 
         else:
             return render_template('error.html', error_message="Project not found"), 404
-    else:
-        return render_template('error.html', error_message="Class not found"), 404
+
+from markdown_it import MarkdownIt
+md = MarkdownIt()
+
+@app.route('/api/project/<string:project>/readme')
+def project_readme_api(project):
+    """API endpoint to serve README content for a project."""
+    if proj_loader.hasProject(project):
+        p = proj_loader.getProjectByName(project)
+        if p.hasReadME():
+            html = md.render(p.getReadME())
+            return jsonify({'readme': html})
+        return jsonify({'readme': None})
+    return jsonify({'error': 'Project not found'}), 404
 
 # ------------------------------------------------ Projects ---------------------------------------------------------------
 

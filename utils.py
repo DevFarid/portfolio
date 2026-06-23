@@ -16,9 +16,11 @@ class project:
         self.lastCommit = None
         self.numOfCommits = None
         self.relative_path = ""
-        self.languagesUsed = []
+        self.languagesUsed = {}
         self.readmeContents = None
         self.shortDescription = None
+        self.description = None
+        self.num = 999
 
         self.icon = None
 
@@ -34,6 +36,8 @@ class project:
         self.loadLanguagesUsed()
         self.loadReadme()
         self.loadShortDescription()
+        self.loadDescription()
+        self.loadNum()
 
     def loadIcon(self):
         dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self.relative_path)
@@ -52,32 +56,28 @@ class project:
             self.repoLink = x
 
     def loadGitDate(self):
-        if self.repoLink is not None:
-            dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self.relative_path)
-            x = Utilities.get_creation_date(dir_path)
-            if x is not None:
-                self.date = x
+        dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self.relative_path)
+        x = Utilities.get_creation_date(dir_path)
+        if x is not None:
+            self.date = x
 
     def loadLastCommit(self):
-        if self.repoLink is not None:
-            dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self.relative_path)
-            x = Utilities.get_last_commit_date(dir_path)
-            if x is not None:
-                self.lastCommit = x
+        dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self.relative_path)
+        x = Utilities.get_last_commit_date(dir_path)
+        if x is not None:
+            self.lastCommit = x
 
     def loadCommits(self):
-        if self.repoLink is not None:
-            dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self.relative_path)
-            x = Utilities.get_total_commits(dir_path)
-            if x is not None:
-                self.numOfCommits = x
+        dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self.relative_path)
+        x = Utilities.get_total_commits(dir_path)
+        if x is not None:
+            self.numOfCommits = x
 
     def loadLanguagesUsed(self):
-        if self.repoLink is not None:
-            dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self.relative_path)
-            x = Utilities.get_languages_used(dir_path)
-            if x is not None:
-                self.languagesUsed = x
+        dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self.relative_path)
+        x = Utilities.get_languages_used(dir_path)
+        if x is not None:
+            self.languagesUsed = x
 
     def loadReadme(self):
         x = None
@@ -99,6 +99,19 @@ class project:
         x = Utilities.get_project_info(dir_path, 'desc')
         if x is not None:
             self.shortDescription = x
+        else:
+            # Fallback: read README.md and extract a short summary
+            read_me_path = os.path.join(dir_path, 'README.md')
+            if os.path.exists(read_me_path):
+                with open(read_me_path, "r", encoding='utf-8') as md_file:
+                    raw = md_file.read()
+                    # Convert to HTML, then strip tags to get plain text
+                    html = markdown.markdown(raw, extensions=["fenced_code", "codehilite"])
+                    text = re.sub(r'<[^>]+>', ' ', html).strip()
+                    # Remove extra whitespace
+                    text = re.sub(r'\s+', ' ', text)
+                    # Take first 200 characters as short description
+                    self.shortDescription = text[:200].rstrip() + ('...' if len(text) > 200 else '')
 
     def getRepoLink(self):
         return self.repoLink
@@ -130,8 +143,38 @@ class project:
     def hasReadME(self):
         return self.readmeContents is not None
     
+    def getTree(self):
+        dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self.relative_path)
+        return Utilities.get_directory_tree(dir_path)
+
     def getShortDescription(self):
         return self.shortDescription
+
+    def loadDescription(self):
+        dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self.relative_path)
+        info_path = os.path.join(dir_path, '.info')
+        if os.path.exists(info_path):
+            config = configparser.ConfigParser()
+            with open(info_path, 'r', encoding='utf-8') as f:
+                config.read_file(f)
+            self.description = config['info'].get('description', None)
+
+    def getDescription(self):
+        return self.description
+
+    def loadNum(self):
+        dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self.relative_path)
+        info_path = os.path.join(dir_path, '.info')
+        if os.path.exists(info_path):
+            config = configparser.ConfigParser()
+            with open(info_path, 'r', encoding='utf-8') as f:
+                config.read_file(f)
+            n = config['info'].get('num', None)
+            if n is not None:
+                self.num = int(n)
+
+    def getNum(self):
+        return self.num
 
 class Utilities:
     EXTENSION_LANGUAGE_MAP = {
@@ -330,13 +373,15 @@ class Utilities:
             # List all entries in the directory
             entries = os.listdir(dir_path)
             
-            # Filter out non-directories and the __pycache__ directory
+            # Filter out non-directories, __pycache__, and hidden directories
             directories = [
                 entry for entry in entries
-                if os.path.isdir(os.path.join(dir_path, entry)) and entry != '__pycache__'
+                if os.path.isdir(os.path.join(dir_path, entry))
+                and entry != '__pycache__'
+                and not entry.startswith('.')
             ]
             
-            return directories
+            return sorted(directories)
         
         except FileNotFoundError:
             print(f"Error: The directory {dir_path} does not exist.")

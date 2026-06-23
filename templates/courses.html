@@ -9,11 +9,28 @@
         {% for i in range(0, class_loader.len()) %}
         <div class="bg-white rounded-lg shadow-md overflow-hidden transition-all hover:shadow-2xl">
             <div class="p-6">
-              {% for j in range( 0, class_loader.len_of_cproj(i) ) %}
-                <h3 class="font-semibold  text-2xl"><a href="{{url_for('specific_classproject', clazz=class_loader.clazz(i).getName(), project=class_loader.clazz(i).getClassProjects()[j].getName())}}" class="transition-all text-blue-900 hover:text-blue-600">{{class_loader.clazz(i).getClassProjects()[j].getName().replace('_', ' ')}}</a></h3>
-                <p class="text-sky-800 text-sm mb-2 pb-5">
-                  {{class_loader.clazz(i).getClassProjects()[j].getShortDescription()}}
-                </p>                
+              <h3 class="font-semibold text-2xl mb-4">{{class_loader.clazz(i).getFormalName()}}</h3>
+              {% set projects = class_loader.clazz(i).getClassProjects() | sort(attribute='num') %}
+              {% for j in range(projects|length) %}
+                {% set p = projects[j] %}
+                {% set name = p.getName() %}
+                {% set title = name.replace('-', ' ') %}
+               {% if name.lower().startswith('homework') %}
+                 {% set title = 'HW #' + p.getNum()|string + ' — ' + name.replace('Homework', '').replace('homework', '').replace('Hw', '').replace('hw', '').lstrip() %}
+               {% endif %}
+                <h4 class="font-medium text-lg"><a href="{{url_for('specific_classproject', clazz=class_loader.clazz(i).getName(), project=name)}}" class="transition-all text-blue-900 hover:text-blue-600">{{ title }}</a></h4>
+                {% set desc = p.getDescription() %}
+                {% if not desc %}
+                  {% set desc = p.getShortDescription() %}
+                {% endif %}
+                {% if desc %}
+                <p class="text-sky-800 text-sm mb-2 pb-4">
+                  {{ desc }}
+                </p>
+                {% endif %}
+                {% if j > 0 %}
+                <hr class="border-gray-100 mb-4">
+                {% endif %}
               {% endfor %}
             </div>
           </div>
