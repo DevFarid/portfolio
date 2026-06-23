@@ -1,13 +1,21 @@
 {% block styles %}
-  <link rel="stylesheet"  type="text/css" href="{{url_for('static', filename='css/main.css')}}">
-  <!-- preline -->
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/main.css')}}">
+  <style>
+    .fade-in-enter {
+      animation: fadeIn 0.3s ease-in both;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
 {% endblock %}
 
 <!DOCTYPE html>
 <html lang="en">
 {% include 'head.html' %}
 {% include 'navbar.html' %}
-<body class="bg-gray-100">
+<body class="bg-gray-100 fade-in-enter" style="opacity: 0">
   {% block content %}{% endblock %}
   {% include 'footer.html' %}
 </body>

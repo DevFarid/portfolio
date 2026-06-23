@@ -1,14 +1,23 @@
 {% extends "base.html" %}
 {% block content %}
+  {% import '_tree.html' as tree %}
   {% if project %}
 
   <section class="overflow-hidden">
     <div class="container px-4 mx-auto">
       <div class="mb-10">
         <div class="z-10">
+          {% if project.getName().lower().startswith('homework') %}
+            {% set hw_num = project.getName() | replace('homework', '') | replace('Homework', '') | replace('Homework', '') %}
+            {% set num = hw_num | int if hw_num and hw_num.isdigit() else 1 %}
+            {% set title = 'HW #' + num|string %}
+          {% else %}
+            {% set title = project.getName().replace('_', ' ') %}
+          {% endif %}
           <a href="{{project.getRepoLink()}}" target="_blank">
-            <h1 class="text-center text-5xl lg:text-7xl font-bold font-heading max-w-lg lg:max-w-3xl mx-auto pt-8 pb-16">{{project.getName().replace('_', ' ')}}</h1>
+            <h1 class="text-center text-5xl lg:text-7xl font-bold font-heading max-w-lg lg:max-w-3xl mx-auto pt-8 pb-16">{{title}}</h1>
           </a>
+          {% if project.getCreatedDate() or project.getLastCommit() or project.getNumOfCommits() or project.getLanguagesUsed() %}
           <div class="border border-gray-200 bg-white rounded-3xl flex flex-wrap">
             <div class="w-full md:w-1/2 lg:w-1/4 py-8">
               <div class="md:border-r border-gray-200 px-12">
@@ -35,13 +44,29 @@
               </div>
             </div>
           </div>
+          {% endif %}
         </div>
       </div>
 
       <div class="flex flex-wrap">
         {% if project.hasReadME() %}
-          <div class="prose sm:w-1/2 p-4 mx-auto">
-            {{ project.getReadME() | safe }}
+          <div class="flex flex-wrap">
+            <div class="w-full sm:w-1/2 p-4">
+              <h3 class="text-2xl font-semibold text-center mb-4">📂 Files</h3>
+              <div class="bg-gray-50 rounded-lg p-4 overflow-auto max-h-[600px]">
+                {{ tree.render_tree(project.getTree(), clickable=True) }}
+              </div>
+            </div>
+            <div id="readme-display" class="w-full sm:w-1/2 p-4 prose max-w-none">
+            </div>
+          </div>
+        {% else %}
+          <div class="flex flex-wrap">
+            <div class="w-full p-4">
+              <div class="bg-gray-50 rounded-lg p-4 overflow-auto max-h-[600px]">
+                {{ tree.render_tree(project.getTree(), clickable=True) }}
+              </div>
+            </div>
           </div>
         {% endif %}
       </div>
@@ -51,6 +76,34 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://unpkg.com/@lottiefiles/lottie-player@0.4.0/dist/lottie-player.js"></script>
+
+  <script>
+  function showReadme(el, event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const path = el.getAttribute('data-readme-path');
+    const project = "{{ project.getName() }}";
+    console.log('showReadme clicked, project:', project, 'path:', path);
+    const endpoint = `/api/project/${project}/readme`;
+    console.log('Fetching:', endpoint);
+    fetch(endpoint)
+      .then(r => {
+        console.log('Response status:', r.status);
+        return r.json();
+      })
+      .then(data => {
+        console.log('API data:', data);
+        const container = document.getElementById('readme-display');
+        console.log('Container:', container);
+        container.innerHTML = data.readme || 'No README found';
+        container.style.display = 'block';
+        console.log('Content set, display:', container.style.display);
+      })
+      .catch(err => {
+        console.error('Failed to load README:', err);
+      });
+  }
+  </script>
 
   <!-- <div class="card">
     {% if project.hasIcon() %}
